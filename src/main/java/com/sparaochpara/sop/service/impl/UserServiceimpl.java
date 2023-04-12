@@ -4,8 +4,6 @@ import com.sparaochpara.sop.dto.UserDto;
 import com.sparaochpara.sop.model.User;
 import com.sparaochpara.sop.repository.UserRepository;
 import com.sparaochpara.sop.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
