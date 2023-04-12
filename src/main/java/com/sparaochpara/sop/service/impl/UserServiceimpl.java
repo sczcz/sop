@@ -4,9 +4,12 @@ import com.sparaochpara.sop.dto.UserDto;
 import com.sparaochpara.sop.model.User;
 import com.sparaochpara.sop.repository.UserRepository;
 import com.sparaochpara.sop.service.UserService;
+import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Service
 public class UserServiceimpl implements UserService {
 
     private UserRepository userRepository;
