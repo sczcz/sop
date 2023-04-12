@@ -4,12 +4,11 @@ import com.sparaochpara.sop.dto.UserDto;
 import com.sparaochpara.sop.model.User;
 import com.sparaochpara.sop.repository.UserRepository;
 import com.sparaochpara.sop.service.UserService;
-import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Service
 public class UserServiceimpl implements UserService {
 
     private UserRepository userRepository;
@@ -23,37 +22,6 @@ public class UserServiceimpl implements UserService {
         List<User>users = userRepository.findAll();
         return users.stream().map((user) -> mapToUserDto(user)).collect(Collectors.toList());
     }
-
-    @Override
-    public User saveUser(UserDto userDto) {
-        User user = mapToUser(userDto);
-        return userRepository.save(user);
-    }
-
-    @Override
-    public UserDto findUserByEmail(String email) {
-        User user = userRepository.findUserByEmail(email).get();
-        return mapToUserDto(user);
-    }
-
-    @Override
-    public void updateClub(UserDto userDto) {
-        User user = mapToUser(userDto);
-        userRepository.save(user);
-    }
-
-    private User mapToUser(UserDto user) {
-        User userDto = User.builder()
-                .email(user.getEmail())
-                .firstName(user.getFirstName())
-                .lastName(user.getLastName())
-                .password(user.getPassword())
-                .createdOn(user.getCreatedOn())
-                .updatedOn(user.getUpdatedOn())
-                .build();
-        return userDto;
-    }
-
     private UserDto mapToUserDto (User user ){
         UserDto userDto = UserDto.builder()
                 .email(user.getEmail())
