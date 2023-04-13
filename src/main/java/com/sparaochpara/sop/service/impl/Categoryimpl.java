@@ -4,10 +4,11 @@ import com.sparaochpara.sop.dto.CategoryDto;
 import com.sparaochpara.sop.model.Category;
 import com.sparaochpara.sop.repository.CategoryRepository;
 import com.sparaochpara.sop.service.CategoryService;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
+@Service
 public class Categoryimpl implements CategoryService {
     private CategoryRepository categoryRepository;
 
