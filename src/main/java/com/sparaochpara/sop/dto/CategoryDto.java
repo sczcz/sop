@@ -1,5 +1,11 @@
 package com.sparaochpara.sop.dto;
 
+import lombok.Builder;
+import lombok.Data;
+
+@Data
+@Builder
 public class CategoryDto {
-    //TODO: Skriv denna
+    private Long id;
+    private String name;
 }
