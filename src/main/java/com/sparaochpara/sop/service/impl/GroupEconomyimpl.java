@@ -4,10 +4,11 @@ import com.sparaochpara.sop.dto.GroupEconomyDto;
 import com.sparaochpara.sop.model.GroupEconomy;
 import com.sparaochpara.sop.repository.GroupEconomyRepository;
 import com.sparaochpara.sop.service.GroupEconomyService;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
+@Service
 public class GroupEconomyimpl implements GroupEconomyService {
     private GroupEconomyRepository groupEconomyRepository;
     public GroupEconomyimpl(GroupEconomyRepository groupEconomyRepository) {
