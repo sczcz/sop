@@ -24,6 +24,7 @@ public class UserController {
         List<UserDto> users = userService.findAllUsers();
         model.addAttribute("users", users);
         return "users-list";
+        //hej!
     }
 
 }
