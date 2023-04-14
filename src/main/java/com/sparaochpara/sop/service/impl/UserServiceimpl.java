@@ -25,7 +25,8 @@ public class UserServiceimpl implements UserService {
     }
 
     @Override
-    public User saveUser(User user) {
+    public User saveUser(UserDto userDto) {
+        User user = mapToUser(userDto);
         return userRepository.save(user);
     }
 
