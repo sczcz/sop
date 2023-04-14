@@ -33,6 +33,13 @@ public class UserController {
 
     }
 
+    @GetMapping("/users/{email}")
+    public String userDetail(@PathVariable("email") String email, Model model){
+        UserDto userDto = userService.findUserByEmail(email);
+        model.addAttribute("user", userDto);
+        return "users-detail";
+    }
+
     @GetMapping("/users/new")
     public String createUserForm(Model model){
         User user = new User();
