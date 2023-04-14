@@ -13,5 +13,6 @@ public class UserDto {
     private String lastName;
     private LocalDateTime createdOn;
     private LocalDateTime updatedOn;
+    private String password;
 
 }

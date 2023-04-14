@@ -11,7 +11,7 @@
                 <h1 class="fw-bolder">Din ekonomi</h1>
             </div>
             <div class="row gx-5">
-                <div th:each="user : ${users}" class="col-lg-6">
+                <div th:each="user : ${users}" class="col-lg-6 mb-2">
                     <div class="position-relative mb-5">
                         <div style="display: inline-block;">
                             <p th:text="${user.email}" class="h3 fw-bolder text-decoration-none link-dark stretched-link" href="#!"style="display: inline-block;">Project name</p>
@@ -19,6 +19,7 @@
                             <p th:text="${user.lastName}" class="h3 fw-bolder text-decoration-none link-dark stretched-link" href="#!"style="display: inline-block;">Project name</p>
                         </div>
                     </div>
+                    <a class="btn btn-primary" th:href="@{/users/{email}/edit(email=${user.email})}">Edit</a>
                 </div>
             </div>
         </div>
