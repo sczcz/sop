@@ -13,5 +13,5 @@ public interface UserService {
 
     UserDto findUserByEmail(String email);
 
-    void updateClub(UserDto user);
+    void updateUser(UserDto user);
 }

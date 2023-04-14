@@ -70,7 +70,7 @@ public class UserController {
             return "users-edit";
         }
         user.setEmail(email);
-        userService.updateClub(user);
+        userService.updateUser(user);
         return "redirect:/users";
     }
 

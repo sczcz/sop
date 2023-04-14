@@ -37,7 +37,7 @@ public class UserServiceimpl implements UserService {
     }
 
     @Override
-    public void updateClub(UserDto userDto) {
+    public void updateUser(UserDto userDto) {
         User user = mapToUser(userDto);
         userRepository.save(user);
     }
