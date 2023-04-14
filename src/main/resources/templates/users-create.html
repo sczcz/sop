@@ -20,6 +20,7 @@
                 name="email"
                 th:field="*{email}"
                 aria-describedby="emailHelp">
+        <p th:if="${#fields.hasErrors('email')}" class="text-danger" th:errors="*{email}"></p>
         <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
       </div>
       <div class="form-group mb-3">
@@ -30,6 +31,7 @@
                 id="password"
                 name="password"
                 th:field="*{password}">
+        <p th:if="${#fields.hasErrors('password')}" class="text-danger" th:errors="*{password}"></p>
       </div>
       <div class="form-group mb-3">
         <label for="firstName">Firstname</label>
@@ -39,6 +41,7 @@
                 id="firstName"
                 name="firstName"
                 th:field="*{firstName}">
+        <p th:if="${#fields.hasErrors('firstName')}" class="text-danger" th:errors="*{firstName}"></p>
       </div>
       <div class="form-group mb-3">
         <label for="lastName">Lastname</label>
@@ -48,6 +51,7 @@
                 id="lastName"
                 name="lastName"
                 th:field="*{lastName}">
+        <p th:if="${#fields.hasErrors('lastName')}" class="text-danger" th:errors="*{lastName}"></p>
       </div>
       <button type="submit" class="btn btn-primary">Create</button>
     </form>
