@@ -28,12 +28,6 @@ public class User {
     @UpdateTimestamp
     private LocalDateTime updatedOn;
 
-    public void setPassword(String password) {
-        this.password = new BCryptPasswordEncoder().encode(password);
-    }
 
-    public boolean checkPassword(String password) {
-        return new BCryptPasswordEncoder().matches(password, this.password);
-    }
 
 }
