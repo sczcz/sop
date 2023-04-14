@@ -1,31 +1,31 @@
-<html xmlns:th="http://thymeleaf.org">
+<html
+        xmlns:th="http://thymeleaf.org"
+        xmlns:layout="http://ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout}">
 <body class="d-flex flex-column h-100">
 <main class="flex-shrink-0">
-    <!-- Navigation-->
     <!-- Page Content-->
-    <section class="py-5">
+    <section layout:fragment="body" class="py-5">
         <div class="container px-5 my-5">
             <div class="text-center mb-5">
-                <h1 class="fw-bolder">Spara och Para</h1>
-                <p class="lead fw-normal text-muted mb-0">Fetch username(email) and name</p>
+                <h1 class="fw-bolder">Din ekonomi</h1>
             </div>
             <div class="row gx-5">
-                <div th:each="user : ${users}" class="col-lg-6">
+                <div th:each="user : ${users}" class="col-lg-6 mb-2">
                     <div class="position-relative mb-5">
-                        <a th:text="${user.email}" class="h3 fw-bolder text-decoration-none link-dark stretched-link">Project name</a>
-                        <a th:text="${user.firstName}" class="h3 fw-bolder text-decoration-none link-dark stretched-link">Project name</a>
-                        <a th:text="${user.lastName}" class="h3 fw-bolder text-decoration-none link-dark stretched-link">Project name</a>
+                        <div style="display: inline-block;">
+                            <p th:text="${user.email}" class="h3 fw-bolder text-decoration-none link-dark stretched-link" href="#!"style="display: inline-block;">Project name</p>
+                            <p th:text="${user.firstName}" class="h3 fw-bolder text-decoration-none link-dark stretched-link" href="#!"style="display: inline-block;">Project name</p>
+                            <p th:text="${user.lastName}" class="h3 fw-bolder text-decoration-none link-dark stretched-link" href="#!"style="display: inline-block;">Project name</p>
+                        </div>
                     </div>
+                    <a class="btn btn-primary" th:href="@{/users/{email}/edit(email=${user.email})}">Edit</a>
                 </div>
             </div>
         </div>
     </section>
-</main>
-<!-- Footer-->
 
-<!-- Bootstrap core JS-->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-<!-- Core theme JS-->
-<script src="js/scripts.js"></script>
+</main>
+
 </body>
 </html>
