@@ -18,5 +18,7 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-
+    @ManyToOne
+    @JoinColumn(name = "user_email", referencedColumnName = "email")
+    private User user;
 }

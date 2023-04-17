@@ -6,8 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 @Data
@@ -15,25 +15,16 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "\"groupeconomy\"")
-public class GroupEconomy {
-
+@Table(name = "\"group\"")
+public class Group {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String name;
-    private double sum;
-    @ManyToOne
-    @JoinColumn(name = "category_id", referencedColumnName = "id")
-    private Category category;
+
     @CreationTimestamp
     private LocalDateTime createdOn;
-    @CreationTimestamp
+    @UpdateTimestamp
     private LocalDateTime updatedOn;
-    private boolean isIncome;
-    @ManyToOne
-    @JoinColumn(name = "user_email", referencedColumnName = "email")
-    private User user;
-
-
-
 }

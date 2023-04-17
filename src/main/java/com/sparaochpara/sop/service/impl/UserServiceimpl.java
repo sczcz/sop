@@ -32,7 +32,7 @@ public class UserServiceimpl implements UserService {
 
     @Override
     public UserDto findUserByEmail(String email) {
-        User user = userRepository.findUserByEmail(email).get();
+        User user = userRepository.findById(email).get();
         return mapToUserDto(user);
     }
 
@@ -43,7 +43,7 @@ public class UserServiceimpl implements UserService {
     }
 
     private User mapToUser(UserDto user) {
-        User userDto = User.builder()
+        return User.builder()
                 .email(user.getEmail())
                 .firstName(user.getFirstName())
                 .lastName(user.getLastName())
@@ -51,18 +51,15 @@ public class UserServiceimpl implements UserService {
                 .createdOn(user.getCreatedOn())
                 .updatedOn(user.getUpdatedOn())
                 .build();
-        return userDto;
     }
 
     private UserDto mapToUserDto (User user ){
-        UserDto userDto = UserDto.builder()
+        return UserDto.builder()
                 .email(user.getEmail())
                 .firstName(user.getFirstName())
                 .lastName(user.getLastName())
                 .createdOn(user.getCreatedOn())
                 .updatedOn(user.getUpdatedOn())
                 .build();
-        return userDto;
-
     }
 }
