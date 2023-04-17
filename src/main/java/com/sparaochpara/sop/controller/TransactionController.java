@@ -17,7 +17,7 @@ public class TransactionController {
     public TransactionController(TransactionService transactionService){this.transactionService = transactionService;}
 
     @GetMapping("/transactions")
-    public String listUsers(Model model){
+    public String listTransactions(Model model){
         List<TransactionDto> transactions = transactionService.findAllTransactions();
         model.addAttribute("transactions", transactions);
         return "transactions";
