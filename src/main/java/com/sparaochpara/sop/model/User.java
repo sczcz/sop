@@ -23,7 +23,7 @@ public class User {
     private String firstName;
     private String lastName;
 
-    @Column(nullable = false, columnDefinition = "VARBINARY(60)")
+    //@Column(nullable = false, columnDefinition = "VARBINARY(60)")
     private String password;
 
     @CreationTimestamp
