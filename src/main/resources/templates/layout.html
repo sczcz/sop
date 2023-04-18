@@ -4,61 +4,55 @@
 <head>
     <meta charset="UTF-8">
     <link href="https://cdn.jsdelivr.net/npm/boootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet"/>
-    <link th:href="@{/css/styles.css}" rel="stylesheet">
+    <link th:href="@{../static/css/styles.css}" rel="stylesheet">
     <title>layout:title-pattern="$CONTENT_TITLE - $LAYOUT_TITLE">users</title>
 </head>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container px-5">
-        <a class="navbar-brand" href="index.html">Spara och para</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
-                <li class="nav-item"><a class="nav-link" href="about.html">Gruppekonomi</a></li>
-                <li class="nav-item"><a class="nav-link" href="contact.html">Grisafan</a></li>
-                <li class="nav-item"><a class="nav-link" href="pricing.html">Inställningar</a></li>
-                <li class="nav-item"><a class="nav-link" href="faq.html">FAQ</a></li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" id="navbarDropdownBlog" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Blog</a>
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownBlog">
-                        <li><a class="dropdown-item" href="blog-home.html">Blog Home</a></li>
-                        <li><a class="dropdown-item" href="blog-post.html">Blog Post</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" id="navbarDropdownPortfolio" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Alternatives</a>
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownPortfolio">
-                        <li><a class="dropdown-item" th:href="@{/users/new}">Create user</a></li>
-                    </ul>
-                </li>
-            </ul>
+<body th:fragment="body" class="img js-fullheight" style="background-image: url(../static/images/test_copy.jpg);">
+<section class="ftco-section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6 text-center mb-5">
+                <h2 class="heading-section">Spara och Para</h2>
+            </div>
         </div>
-    </div>
-</nav>
-<body layout:fragment="body"></body>
-<section class="py-5 bg-light">
-    <div class="container px-5 my-5">
-        <h2 class="display-4 fw-bolder mb-4">Let's build something together</h2>
-        <h3 class="display-4 fw-bolder mb-4">Let's murder everybody!</h3>
-        <a class="btn btn-lg btn-primary" href="#!">Contact us</a>
-    </div>
-</section>
-<footer class="bg-dark py-4 mt-auto">
-    <div class="container px-5">
-        <div class="row align-items-center justify-content-between flex-column flex-sm-row">
-            <div class="col-auto"><div class="small m-0 text-white">Copyright &copy; Your Website 2023</div></div>
-            <div class="col-auto">
-                <a class="link-light small" href="#!">Privacy</a>
-                <span class="text-white mx-1">&middot;</span>
-                <a class="link-light small" href="#!">Terms</a>
-                <span class="text-white mx-1">&middot;</span>
-                <a class="link-light small" href="#!">Contact</a>
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-4">
+                <div class="login-wrap p-0">
+                    <h3 class="mb-4 text-center">Ny användare</h3>
+                    <form role="form" method="post" th:action="@{/users/new}" th:object="${user}">
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="email" name="email" th:field="*{email}" placeholder="Epost" required>
+                            <p th:if="${#fields.hasErrors('email')}" class="text-danger" th:errors="*{email}"></p>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="firstName" name="firstName" th:field="*{firstName}" placeholder="Förnamn" required>
+                            <p th:if="${#fields.hasErrors('firstName')}" class="text-danger" th:errors="*{firstName}"></p>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="lastName" name="lastName" th:field="*{lastName}" placeholder="Efternamn" required>
+                            <p th:if="${#fields.hasErrors('lastName')}" class="text-danger" th:errors="*{lastName}"></p>
+                        </div>
+                        <div class="form-group">
+                            <input id="password-field" type="password" class="form-control" placeholder="Lösenord" required>
+                            <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <button type="submit" class="form-control btn btn-primary submit px-3">Skapa användare</button>
+                        </div>
+                    </form>
+                    <p class="w-100 text-center"><a href="index-test3.html">— Redan konto? Logga in —</a></p>
+                </div>
             </div>
         </div>
     </div>
-</footer>
-<!-- Bootstrap core JS-->
+</section>
+
+<script src="../static/js/jquery.min.js"></script>
+<script src="../static/js/popper.js"></script>
+<script src="../static/js/bootstrap.min.js"></script>
+<script src="../static/js/main.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-<!-- Core theme JS-->
-<script src="js/scripts.js"></script>
+
+</body>
 </html>
