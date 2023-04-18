@@ -23,7 +23,7 @@ public class User {
     private String firstName;
     private String lastName;
 
-    //TODO: Lägg till @Password-annotering här med korrekt bibliotek "injicerat"
+    @Column(nullable = false, columnDefinition = "VARBINARY(60)")
     private String password;
 
     @CreationTimestamp
