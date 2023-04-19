@@ -1,6 +1,7 @@
 package com.sparaochpara.sop.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,6 +19,7 @@ import java.time.LocalDateTime;
 @Table(name = "\"user\"")
 public class User {
     @Id
+    @Email
     private String email;
 
     private String firstName;
