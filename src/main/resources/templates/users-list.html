@@ -1,29 +1,57 @@
+<!doctype html>
 <html
-        >
-<body class="d-flex flex-column h-100">
-<main class="flex-shrink-0">
-    <!-- Page Content-->
-    <section class="py-5">
-        <div class="container px-5 my-5">
-            <div class="text-center mb-5">
-                <h1 class="fw-bolder">Användare</h1>
+        lang="en"
+        xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <title>Spara och Para - Användarlista</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <th:block th:with="fontUrl='https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap'">
+        <link rel="stylesheet" th:href="@{${fontUrl}}"/>
+    </th:block>
+
+    <link rel="stylesheet" th:href="@{https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css}">
+
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+
+</head>
+<body class="img js-fullheight" style="background-image: url(/images/test_copy.jpg);">
+<section class="ftco-section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6 text-center mb-5">
+                <h2 class="heading-section">Spara och Para</h2>
             </div>
-            <div class="row gx-5">
-                <div th:each="user : ${users}" class="col-lg-6 mb-2">
-                    <div class="position-relative mb-5">
-                        <div style="display: inline-block;">
-                            <p th:text="${user.email}" class="h3 fw-bolder text-decoration-none link-dark stretched-link" href="#!"style="display: inline-block;">Project name</p>
-                            <p th:text="${user.firstName}" class="h3 fw-bolder text-decoration-none link-dark stretched-link" href="#!"style="display: inline-block;">Project name</p>
-                            <p th:text="${user.lastName}" class="h3 fw-bolder text-decoration-none link-dark stretched-link" href="#!"style="display: inline-block;">Project name</p>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-4">
+                <div class="login-wrap p-0">
+                    <h3 class="mb-4 text-center">Alla användare</h3>
+                    <div th:each="user : ${users}" class="col-lg-6 mb-2 text-center" style="border: 1px solid #ccc; background-color: rgba(255, 255, 255, 0.8);">
+                        <div class="position-relative mb-5">
+                            <div style="display: inline-block;">
+                                <p th:text="${user.email}" class="h3 fw-bolder text-decoration-none link-dark stretched-link" href="#!"style="display: inline-block; font-size: 14px;">Project name</p>
+                                <p th:text="${user.firstName}" class="h3 fw-bolder text-decoration-none link-dark stretched-link" href="#!"style="display: inline-block; font-size: 14px;">Project name</p>
+                                <p th:text="${user.lastName}" class="h3 fw-bolder text-decoration-none link-dark stretched-link" href="#!"style="display: inline-block; font-size: 14px;">Project name</p>
+                            </div>
                         </div>
+                        <a class="btn btn-primary" th:href="@{/users/{email}/edit(email=${user.email})}">Edit</a>
                     </div>
-                    <a class="btn btn-primary" th:href="@{/users/{email}/edit(email=${user.email})}">Edit</a>
+                    <p class="w-100 text-center"><a href="index-test3.html">— Redan konto? Logga in —</a></p>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-</main>
+<script th:src="@{/js/jquery.min.js}"></script>
+<script th:src="@{/js/popper.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/main.js}"></script>
 
 </body>
 </html>
+
+
