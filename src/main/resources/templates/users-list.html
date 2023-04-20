@@ -30,14 +30,16 @@
                 <div class="login-wrap p-0">
                     <h3 class="mb-4 text-center">Alla användare</h3>
                     <div th:each="user : ${users}" class="col-lg-6 mb-2 text-center mx-auto" style="border: 1px solid #ccc; background-color: rgba(255, 255, 255, 0.8);">
-                        <div class="position-relative mb-5">
+                        <div class="position-relative mb-2">
                             <div style="display: inline-block;">
                                 <p th:text="${user.email}" class="h3 fw-bolder text-decoration-none link-dark stretched-link" href="#!"style="display: inline-block; font-size: 14px;">Project name</p>
                                 <p th:text="${user.firstName}" class="h3 fw-bolder text-decoration-none link-dark stretched-link" href="#!"style="display: inline-block; font-size: 14px;">Project name</p>
                                 <p th:text="${user.lastName}" class="h3 fw-bolder text-decoration-none link-dark stretched-link" href="#!"style="display: inline-block; font-size: 14px;">Project name</p>
                             </div>
                         </div>
-                        <a class="btn btn-primary" th:href="@{/users/{email}/edit(email=${user.email})}">Edit</a>
+                        <div class="position-relative mb-2">
+                            <a class="btn btn-primary" th:href="@{/users/{email}/edit(email=${user.email})}">Edit</a>
+                        </div>
                     </div>
                     <p class="w-100 text-center"><a href="index-test3.html">— Redan konto? Logga in —</a></p>
                 </div>
