@@ -29,7 +29,7 @@
             <div class="col-md-6 col-lg-4">
                 <div class="login-wrap p-0">
                     <h3 class="mb-4 text-center">Alla användare</h3>
-                    <div th:each="user : ${users}" class="col-lg-6 mb-2 text-center" style="border: 1px solid #ccc; background-color: rgba(255, 255, 255, 0.8);">
+                    <div th:each="user : ${users}" class="col-lg-6 mb-2 text-center mx-auto" style="border: 1px solid #ccc; background-color: rgba(255, 255, 255, 0.8);">
                         <div class="position-relative mb-5">
                             <div style="display: inline-block;">
                                 <p th:text="${user.email}" class="h3 fw-bolder text-decoration-none link-dark stretched-link" href="#!"style="display: inline-block; font-size: 14px;">Project name</p>
