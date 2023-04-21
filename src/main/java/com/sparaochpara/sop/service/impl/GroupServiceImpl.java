@@ -4,15 +4,16 @@ import com.sparaochpara.sop.dto.GroupDto;
 import com.sparaochpara.sop.model.Group;
 import com.sparaochpara.sop.repository.GroupRepository;
 import com.sparaochpara.sop.service.GroupService;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
-public class GroupServiceimpl implements  GroupService{
+@Service
+public class GroupServiceImpl implements GroupService{
 
     private GroupRepository groupRepository;
 
-    public GroupServiceimpl(GroupRepository groupRepository){
+    public GroupServiceImpl(GroupRepository groupRepository){
         this.groupRepository=groupRepository;
     }
     @Override

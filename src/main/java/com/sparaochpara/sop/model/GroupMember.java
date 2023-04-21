@@ -6,15 +6,14 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.swing.*;
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Entity
 @Table(name = "\"group_member\"")
-public class Groupmember {
+@IdClass(GroupMemberPK.class)
+public class GroupMember {
 
     @Id
     @ManyToOne
@@ -22,7 +21,7 @@ public class Groupmember {
     private Group group;
     @Id
     @ManyToOne
-    @JoinColumn(name = "email", referencedColumnName = "email")
+    @JoinColumn(name = "user_email", referencedColumnName = "email")
     private User user;
 
 

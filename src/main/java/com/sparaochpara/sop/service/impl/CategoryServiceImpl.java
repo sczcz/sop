@@ -9,10 +9,10 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 @Service
-public class Categoryimpl implements CategoryService {
+public class CategoryServiceImpl implements CategoryService {
     private CategoryRepository categoryRepository;
 
-    public Categoryimpl(CategoryRepository categoryRepository) {
+    public CategoryServiceImpl(CategoryRepository categoryRepository) {
         this.categoryRepository = categoryRepository;
     }
 
