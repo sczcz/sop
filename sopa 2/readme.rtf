@@ -1,0 +1,123 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2578
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 ArialMT;\f1\froman\fcharset0 Times-Bold;\f2\froman\fcharset0 Times-Roman;
+\f3\fswiss\fcharset0 Arial-BoldMT;\f4\fswiss\fcharset0 Arial-ItalicMT;}
+{\colortbl;\red255\green255\blue255;\red0\green0\blue0;\red16\green60\blue192;}
+{\*\expandedcolortbl;;\cssrgb\c0\c0\c0;\cssrgb\c6667\c33333\c80000;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\deftab720
+\pard\pardeftab720\sl580\sa160\partightenfactor0
+
+\f0\fs42\fsmilli21333 \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 Instruktioner:\
+1.\'d6ppna upp zip-filen och \'f6ppna mappen \'93sopa\'94 i Intellij.\
+2. K\'f6r programmet fr\'e5n klassen \'93SopApplication\'94 (v\'e4nta tills uppkoppling sker, det b\'f6r st\'e5 \'93Started SopApplication in\'85\'94)\
+3. \'d6ppna Google Chrome och ange adressen \'93http://localhost:8080/users/new\'94\
+3. H\'e4r kan du skapa en anv\'e4ndare, fyll i dina uppgifter och tryck p\'e5 \'93Skapa anv\'e4ndare\'94\
+4. Om det lyckas ska en sida med samtliga registrerade anv\'e4ndare visas.\
+\
+Spring Boot ramverk (Spring MVC)
+\f1\b\fs36 \
+\pard\pardeftab720\partightenfactor0
+
+\f2\b0\fs24 \cf2 \
+\pard\pardeftab720\sl400\partightenfactor0
+
+\f0\fs29\fsmilli14667 \cf2 I grunden MVC men best\'e5r av fler lager:
+\f2\fs24 \
+\pard\pardeftab720\partightenfactor0
+\cf2 \
+\pard\pardeftab720\sl400\partightenfactor0
+
+\f3\b\fs29\fsmilli14667 \cf2 HTML/UI
+\f0\b0 : View-/interfacedelen. Skickar f\'f6rfr\'e5gningar (HTTP requests) till controller om data eller funktioner som ska utf\'f6ras.
+\f2\fs24 \
+\pard\pardeftab720\partightenfactor0
+\cf2 \
+\pard\pardeftab720\sl400\partightenfactor0
+
+\f3\b\fs29\fsmilli14667 \cf2 Controller
+\f0\b0 : Ansvarig f\'f6r inkommande f\'f6rfr\'e5gningar fr\'e5n UI-lagret. Utf\'f6r s.k mappings (tilldelning?) till r\'e4tt metoder i service-lagret. Konverterar ocks\'e5 inkommande f\'f6rfr\'e5gningsdata till DTO:er och returnerar dem som svar.
+\f2\fs24 \
+\pard\pardeftab720\partightenfactor0
+\cf2 \
+\pard\pardeftab720\sl400\partightenfactor0
+
+\f3\b\fs29\fsmilli14667 \cf2 DTOs
+\f0\b0 : Data Transfer Object transporterar data mellan lager. De anv\'e4nds f\'f6r att underl\'e4tta kommunikationen mellan olika lager genom att definiera ett ett antal attribut som l\'e4tt kan tolkas av b\'e5de UI/Controller- och servicelagren.
+\f2\fs24 \
+\pard\pardeftab720\partightenfactor0
+\cf2 \
+\pard\pardeftab720\sl400\partightenfactor0
+
+\f3\b\fs29\fsmilli14667 \cf2 Services
+\f0\b0 : Inneh\'e5ller \'93aff\'e4rslogiken\'94 och hanterar f\'f6rfr\'e5gningar fr\'e5n controller-lagret och returnerar l\'e4mpliga svar. Kommunicerar med Model f\'f6r att h\'e4mta eller uppdatera data vid behov.
+\f2\fs24 \
+\pard\pardeftab720\partightenfactor0
+\cf2 \
+\pard\pardeftab720\sl400\partightenfactor0
+
+\f3\b\fs29\fsmilli14667 \cf2 Model
+\f0\b0 : Det h\'e4r lagret representerar \'93data-modellen\'94 av applikationen. Best\'e5r av 
+\f4\i entities
+\f0\i0  som direkt motsvaras av databastabeller. I det h\'e4r lagret ing\'e5r \'e4ven 
+\f4\i repository-/data access
+\f0\i0 -lagret som i praktiken \'e4r en upps\'e4ttning Interface-klasser som definierar CRUD-operationer som kan utf\'f6ras p\'e5 databasen.
+\f2\fs24 \
+\pard\pardeftab720\partightenfactor0
+\cf2 \
+\pard\pardeftab720\sl400\partightenfactor0
+
+\f3\b\fs29\fsmilli14667 \cf2 Persistent/DB
+\f0\b0 : Ansvarar f\'f6r lagring och h\'e4mtning av data fr\'e5n PostgreSQL-databasen.
+\f2\fs24 \
+\pard\pardeftab720\sl580\sa160\partightenfactor0
+
+\f0\fs42\fsmilli21333 \cf2 Relationsschema PostgreSQL
+\f1\b\fs36 \
+\pard\pardeftab720\partightenfactor0
+
+\f2\b0\fs24 \cf2 \
+\pard\pardeftab720\sl400\partightenfactor0
+
+\f3\b\fs29\fsmilli14667 \cf2 user
+\f0\b0 (\ul email\ulnone , fname, lname, password)
+\f2\fs24 \
+\pard\pardeftab720\partightenfactor0
+\cf2 \
+\pard\pardeftab720\sl400\partightenfactor0
+
+\f3\b\fs29\fsmilli14667 \cf2 group
+\f0\b0 (\ul id\ulnone , name)
+\f2\fs24 \
+\pard\pardeftab720\partightenfactor0
+\cf2 \
+\pard\pardeftab720\sl400\partightenfactor0
+
+\f3\b\fs29\fsmilli14667 \cf2 group_member
+\f0\b0 (user_email(FK), group_id(FK))
+\f2\fs24 \
+\pard\pardeftab720\partightenfactor0
+\cf2 \
+\pard\pardeftab720\sl400\partightenfactor0
+
+\f3\b\fs29\fsmilli14667 \cf2 category
+\f0\b0 (\ul id\ulnone , name, user_email(FK))
+\f2\fs24 \
+\pard\pardeftab720\partightenfactor0
+\cf2 \
+\pard\pardeftab720\sl400\partightenfactor0
+
+\f3\b\fs29\fsmilli14667 \cf2 transaction
+\f0\b0 (\ul id\ulnone , group_id(FK), user_email(FK), amount, description, category_id(FK))
+\f2\fs24 \
+\pard\pardeftab720\partightenfactor0
+\cf2 \
+\pard\pardeftab720\sl400\partightenfactor0
+
+\f0\fs29\fsmilli14667 \cf2 Kommentarer: \'91user_email\'92-kolumnen i category-tabellen har ett standardv\'e4rde \'93{\field{\*\fldinst{HYPERLINK "mailto:default@example.com"}}{\fldrslt \cf3 \ul \ulc3 \strokec3 default@example.com}}\'94 som anv\'e4nds f\'f6r att s\'e4rskilja standardkategorier fr\'e5n anv\'e4ndarskapade diton. Vad g\'e4ller transaction-tabellen saknas definition av inkomst/utgift. D\'e5 anv\'e4nds ist\'e4llet det faktiska v\'e4rdet i amount-kolumnen (positivt eller negativt) f\'f6r att avg\'f6ra detta. Samtliga tabeller har auto-genererade timestamp-kolumner 
+\f4\i created_on
+\f0\i0  och 
+\f4\i updated_on
+\f0\i0 .\'a0
+\f2\fs24 \
+}

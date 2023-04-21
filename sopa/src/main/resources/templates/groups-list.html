@@ -1,0 +1,30 @@
+<html xmlns:th="http://thymeleaf.org">
+<body class="d-flex flex-column h-100">
+<main class="flex-shrink-0">
+    <!-- Navigation-->
+    <!-- Page Content-->
+    <section class="py-5">
+        <div class="container px-5 my-5">
+            <div class="text-center mb-5">
+                <h1 class="fw-bolder">Spara och Para</h1>
+                <p class="lead fw-normal text-muted mb-0">Fetch group id and name</p>
+            </div>
+            <div class="row gx-5">
+                <div th:each="group : ${groups}" class="col-lg-6">
+                    <div class="position-relative mb-5">
+                        <a th:text="${group.id}" class="h3 fw-bolder text-decoration-none link-dark stretched-link">Project name</a>
+                        <a th:text="${group.name}" class="h3 fw-bolder text-decoration-none link-dark stretched-link">Project name</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+<!-- Footer-->
+
+<!-- Bootstrap core JS-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Core theme JS-->
+<script src="js/scripts.js"></script>
+</body>
+</html>
