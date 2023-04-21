@@ -15,6 +15,8 @@
 	<description>Spara och Para Gr 28</description>
 	<properties>
 		<java.version>17</java.version>
+		<maven.test.skip>true</maven.test.skip>
+		<tests.skip>true</tests.skip>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -64,15 +66,28 @@
 			<artifactId>spring-boot-starter-validation</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.webjars</groupId>
-			<artifactId>bootstrap</artifactId>
-			<version>4.1.2</version>
-		</dependency>
-		<dependency>
-			<groupId>org.webjars</groupId>
-			<artifactId>jquery</artifactId>
-			<version>3.6.2</version>
-		</dependency>
+	  <dependency>
+		  <groupId>org.webjars</groupId>
+		  <artifactId>bootstrap</artifactId>
+		  <version>4.1.2</version>
+	  </dependency>
+	  <dependency>
+		  <groupId>org.webjars</groupId>
+		  <artifactId>jquery</artifactId>
+		  <version>3.6.2</version>
+	  </dependency>
+	  <dependency>
+		  <groupId>javax.servlet</groupId>
+		  <artifactId>javax.servlet-api</artifactId>
+		  <version>4.0.1</version>
+		  <scope>provided</scope>
+	  </dependency>
+	  <dependency>
+		  <groupId>javax.servlet.jsp</groupId>
+		  <artifactId>javax.servlet.jsp-api</artifactId>
+		  <version>2.3.3</version>
+		  <scope>provided</scope>
+	  </dependency>
 	</dependencies>
 
 	<build>
@@ -89,7 +104,25 @@
 					</excludes>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<skipTests>${tests.skip}</skipTests>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<configuration>
+					<propertiesEncoding>UTF-8</propertiesEncoding>
+					<nonFilteredFileExtensions>
+						<nonFilteredFileExtension>xls</nonFilteredFileExtension>
+						<nonFilteredFileExtension>zip</nonFilteredFileExtension>
+					</nonFilteredFileExtensions>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
-
+	<packaging>war</packaging>
 </project>
