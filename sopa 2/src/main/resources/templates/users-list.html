@@ -1,0 +1,29 @@
+<html
+        >
+<body class="d-flex flex-column h-100">
+<main class="flex-shrink-0">
+    <!-- Page Content-->
+    <section class="py-5">
+        <div class="container px-5 my-5">
+            <div class="text-center mb-5">
+                <h1 class="fw-bolder">Användare</h1>
+            </div>
+            <div class="row gx-5">
+                <div th:each="user : ${users}" class="col-lg-6 mb-2">
+                    <div class="position-relative mb-5">
+                        <div style="display: inline-block;">
+                            <p th:text="${user.email}" class="h3 fw-bolder text-decoration-none link-dark stretched-link" href="#!"style="display: inline-block;">Project name</p>
+                            <p th:text="${user.firstName}" class="h3 fw-bolder text-decoration-none link-dark stretched-link" href="#!"style="display: inline-block;">Project name</p>
+                            <p th:text="${user.lastName}" class="h3 fw-bolder text-decoration-none link-dark stretched-link" href="#!"style="display: inline-block;">Project name</p>
+                        </div>
+                    </div>
+                    <a class="btn btn-primary" th:href="@{/users/{email}/edit(email=${user.email})}">Edit</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+</body>
+</html>
