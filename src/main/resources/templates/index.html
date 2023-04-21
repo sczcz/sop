@@ -2,18 +2,9 @@
 <html lang="en"
 	  xmlns:th="http://www.thymeleaf.org">
   <head>
-  	<title>Spara och Para - Login</title>
-	  <meta charset="utf-8">
-	  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-	  <th:block th:with="fontUrl='https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap'">
-		  <link rel="stylesheet" th:href="@{${fontUrl}}"/>
-	  </th:block>
-
-	  <link rel="stylesheet" th:href="@{https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css}">
-
-	  <link rel="stylesheet" th:href="@{/css/style.css}">
-	</head>
+	  <title>Spara och Para - Login</title>
+	  <th:block th:replace="~{layout.html :: head}"></th:block>
+  </head>
 
 	<body class="img js-fullheight" style="background-image: url(/images/test_copy.jpg);">
 	<section class="ftco-section">
