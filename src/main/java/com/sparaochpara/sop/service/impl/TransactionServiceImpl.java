@@ -19,6 +19,13 @@ public class TransactionServiceImpl implements TransactionService {
         List<Transaction> transactions = transactionRepository.findAll();
         return transactions.stream().map((transaction) -> mapToTransactionDto(transaction)).collect(Collectors.toList());
     }
+
+    @Override
+    public Transaction saveTransaction(TransactionDto transactionDto) {
+        Transaction transaction = mapToTransaction(transactionDto);
+        return transactionRepository.save(transaction);
+    }
+
     private TransactionDto mapToTransactionDto(Transaction transaction) {
         return TransactionDto.builder()
                 .id(transaction.getId())
@@ -29,6 +36,19 @@ public class TransactionServiceImpl implements TransactionService {
                 .updatedOn(transaction.getUpdatedOn())
                 .user(transaction.getUser())
                 .group(transaction.getGroup())
+                .build();
+    }
+
+    private Transaction mapToTransaction(TransactionDto transactionDto) {
+        return Transaction.builder()
+                .id(transactionDto.getId())
+                .description(transactionDto.getDescription())
+                .amount(transactionDto.getAmount())
+                .category(transactionDto.getCategory())
+                .createdOn(transactionDto.getCreatedOn())
+                .updatedOn(transactionDto.getUpdatedOn())
+                .user(transactionDto.getUser())
+                .group(transactionDto.getGroup())
                 .build();
     }
 }
