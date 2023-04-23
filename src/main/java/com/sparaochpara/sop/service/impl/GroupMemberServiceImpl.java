@@ -20,14 +20,14 @@ public class GroupMemberServiceImpl implements GroupMemberService {
         this.groupMemberRepository = groupMemberRepository;
     }
     @Override
-    public List<GroupDto> findGroupsByUser(String email) {
-        List<Group> groups = groupMemberRepository.findByUser(email).get();
+    public List<GroupDto> findGroupsByUser(User user) {
+        List<Group> groups = groupMemberRepository.findByUser(user).get();
         return groups.stream().map((group) -> mapToGroupDto(group)).collect(Collectors.toList());
     }
 
     @Override
-    public List<UserDto> findUsersByGroup(Long groupId) {
-        List<User> users = groupMemberRepository.findByGroup(groupId).get();
+    public List<UserDto> findUsersByGroup(Group group) {
+        List<User> users = groupMemberRepository.findByGroup(group).get();
         return users.stream().map((user) -> mapToUserDto(user)).collect(Collectors.toList());
     }
 

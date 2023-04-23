@@ -12,17 +12,17 @@ import lombok.NoArgsConstructor;
 @Builder
 @Entity
 @Table(name = "\"group_member\"")
-@IdClass(GroupMemberPK.class)
 public class GroupMember {
+    @EmbeddedId
+    private GroupMemberPK groupMemberPK;
 
-    @Id
     @ManyToOne
+    @MapsId("groupId")
     @JoinColumn(name = "group_id", referencedColumnName = "id")
     private Group group;
-    @Id
+
     @ManyToOne
+    @MapsId("userEmail")
     @JoinColumn(name = "user_email", referencedColumnName = "email")
     private User user;
-
-
 }
