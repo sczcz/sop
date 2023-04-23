@@ -63,3 +63,29 @@ public class UserServiceImpl implements UserService {
                 .build();
     }
 }
+
+/*
+POSSIBLE updateUser MODIFICATIONS???
+    @Override
+    public void updateUser(UserDto userDto) {
+        User user = userRepository.findById(userDto.getEmail()).orElseThrow(() -> new IllegalArgumentException("User not found"));
+        mapUserDtoToUser(userDto, user);
+        userRepository.save(user);
+    }
+
+    private void mapUserDtoToUser(UserDto userDto, User user) {
+        if (userDto.getFirstName() != null) {
+            user.setFirstName(userDto.getFirstName());
+        }
+        if (userDto.getLastName() != null) {
+            user.setLastName(userDto.getLastName());
+        }
+        if (userDto.getPassword() != null) {
+            user.setPassword(userDto.getPassword());
+        }
+        // Only update the updatedOn field if there are changes to the user entity
+        if (!userDto.equals(mapToUserDto(user))) {
+            user.setUpdatedOn(LocalDateTime.now());
+        }
+    }
+ */
