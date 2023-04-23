@@ -20,7 +20,7 @@ public class TransactionServiceImpl implements TransactionService {
         return transactions.stream().map((transaction) -> mapToTransactionDto(transaction)).collect(Collectors.toList());
     }
     private TransactionDto mapToTransactionDto(Transaction transaction) {
-        TransactionDto transactionDto = TransactionDto.builder()
+        return TransactionDto.builder()
                 .id(transaction.getId())
                 .description(transaction.getDescription())
                 .amount(transaction.getAmount())
@@ -28,7 +28,7 @@ public class TransactionServiceImpl implements TransactionService {
                 .createdOn(transaction.getCreatedOn())
                 .updatedOn(transaction.getUpdatedOn())
                 .user(transaction.getUser())
+                .group(transaction.getGroup())
                 .build();
-        return transactionDto;
     }
 }
