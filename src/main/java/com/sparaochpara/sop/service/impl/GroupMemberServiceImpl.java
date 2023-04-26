@@ -18,8 +18,9 @@ import java.util.stream.Collectors;
 public class GroupMemberServiceImpl implements GroupMemberService {
     private GroupMemberRepository groupMemberRepository;
     private UserRepository userRepository;
-    public GroupMemberServiceImpl(GroupMemberRepository groupMemberRepository) {
+    public GroupMemberServiceImpl(GroupMemberRepository groupMemberRepository, UserRepository userRepository) {
         this.groupMemberRepository = groupMemberRepository;
+        this.userRepository = userRepository;
     }
     @Override
     public List<GroupDto> findGroupsByUser(User user) {
