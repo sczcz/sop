@@ -14,4 +14,6 @@ public interface GroupMemberService {
     List<UserDto> findUsersByGroup(Group group);
     GroupMember saveGroupMember(GroupMemberDto groupMemberDto);
 
+    List<GroupDto> findGroupsByUserEmail(String email);
+
 }

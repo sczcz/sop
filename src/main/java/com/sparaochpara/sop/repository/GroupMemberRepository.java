@@ -11,6 +11,7 @@ import java.util.Optional;
 
 public interface GroupMemberRepository extends JpaRepository<GroupMember, GroupMemberPK> {
     Optional<GroupMember> findById(GroupMemberPK groupMemberPK);
-    Optional<List<Group>> findByUser(User user);
+    List<Group> findByUser(User user);
     Optional<List<User>> findByGroup(Group group);
+    List<Group> findByUserEmail(String userEmail);
 }

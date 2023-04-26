@@ -32,7 +32,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto findUserByEmail(String email) {
-        User user = userRepository.findById(email).get();
+        User user = userRepository.findById(email);
         return mapToUserDto(user);
     }
 
