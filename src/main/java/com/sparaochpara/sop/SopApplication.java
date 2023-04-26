@@ -11,5 +11,3 @@ public class SopApplication {
 	}
 
 }
-//hejsan
-// orkar inte mer
