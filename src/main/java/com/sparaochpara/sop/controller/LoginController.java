@@ -17,7 +17,7 @@ import java.util.UUID;
 @Controller
 public class LoginController {
 
-    @Autowired
+@Autowired
     private UserRepository userRepository;
 
 
