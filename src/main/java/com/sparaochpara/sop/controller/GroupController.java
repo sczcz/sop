@@ -34,7 +34,5 @@ public class GroupController {
         List<GroupDto> groups = groupMemberService.findGroupsByUserEmail(userEmail);
         model.addAttribute("groups", groups);
         return "groups-list";
-
-
     }
 }

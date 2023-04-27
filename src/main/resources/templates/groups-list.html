@@ -23,14 +23,13 @@
                     <div th:each="group : ${groups}" class="col-lg-6 mb-2 text-center mx-auto" style="min-width: 250px; max-width: fit-content; border: 1px solid #ccc; background-color: rgba(255, 255, 255, 0.8);">
                         <div class="position-relative mb-2">
                             <div style="display: inline-block;">
-                                <p th:text="${group.id}" class="h3 fw-bolder text-decoration-none link-dark stretched-link" href="#!" style="display: inline-block; font-size: 14px;"></p>
-                                <p th:text="${group.name}" class="h3 fw-bolder text-decoration-none link-dark stretched-link" href="#!" style="display: inline-block; font-size: 14px;"></p>
+                                <p th:text="${group.getId()}" class="h3 fw-bolder text-decoration-none link-dark stretched-link" href="#!" style="display: inline-block; font-size: 14px;"></p>
+                                <p th:text="${group.getName()}" class="h3 fw-bolder text-decoration-none link-dark stretched-link" href="#!" style="display: inline-block; font-size: 14px;"></p>
                             </div>
                         </div>
-                        <div class="position-relative mb-2">
-                            <a class="btn btn-primary" th:href="@{/users/{email}/edit(email=${user.email})}">Edit</a>
-                        </div>
+
                     </div>
+
                     <p class="w-100 text-center"><a href="index.html">— Redan konto? Logga in —</a></p>
                 </div>
             </div>
