@@ -23,7 +23,7 @@ public class GroupController {
         this.groupService = groupService;
         this.groupMemberService = groupMemberService;
     }
-    @GetMapping ("/groups/{groupId}")
+    @GetMapping ("{userEmail}/groups/{groupId}")
     public String groupDetail(@PathVariable("groupId") Long groupId, Model model) {
         GroupDto groupDto = groupService.findGroupById(groupId);
         model.addAttribute ("group", groupDto);
