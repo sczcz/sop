@@ -4,6 +4,7 @@ import com.sparaochpara.sop.dto.GroupDto;
 import com.sparaochpara.sop.dto.GroupMemberDto;
 import com.sparaochpara.sop.dto.UserDto;
 import com.sparaochpara.sop.model.Group;
+import com.sparaochpara.sop.model.GroupMemberPK;
 import com.sparaochpara.sop.model.User;
 import com.sparaochpara.sop.repository.UserRepository;
 import com.sparaochpara.sop.service.GroupMemberService;
@@ -52,18 +53,25 @@ public class GroupController {
     }
 
     @PostMapping("{userEmail}/groups/new")
-    public String saveGroup(@PathVariable("userEmail") String userEmail, @RequestParam("id") Long id, @Valid @ModelAttribute("group") GroupDto groupDto, BindingResult bindingResult, Model model){
+    public String saveGroup(@PathVariable("userEmail") String userEmail, @RequestParam(name = "id", required = false) Long id, @Valid @ModelAttribute("group") GroupDto groupDto, BindingResult bindingResult, Model model){
         if(bindingResult.hasErrors()){
             model.addAttribute("group", groupDto);
             return "groups-create";
         }
-        groupDto.setId(id);
+        if(id != null){
+            groupDto.setId(id);
+        }
         Group group = groupService.saveGroup(groupDto);
         User user = userRepository.findUserByEmail(userEmail);
         GroupMemberDto groupMemberDto = GroupMemberDto.builder()
                 .user(user)
                 .group(group)
                 .build();
+        if (group.getId() != null) {
+            GroupMemberPK groupMemberPK = new GroupMemberPK();
+            groupMemberPK.setGroupId(group.getId());
+            groupMemberPK.setUserEmail(user.getEmail());
+        }
         groupMemberService.saveGroupMember(groupMemberDto);
         return "redirect:{userEmail}/groups";
     }
