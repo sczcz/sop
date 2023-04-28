@@ -63,16 +63,46 @@ public class GroupController {
         }
         Group group = groupService.saveGroup(groupDto);
         User user = userRepository.findUserByEmail(userEmail);
-        GroupMemberDto groupMemberDto = GroupMemberDto.builder()
-                .user(user)
-                .group(group)
-                .build();
         if (group.getId() != null) {
             GroupMemberPK groupMemberPK = new GroupMemberPK();
             groupMemberPK.setGroupId(group.getId());
             groupMemberPK.setUserEmail(user.getEmail());
         }
+        GroupMemberDto groupMemberDto = GroupMemberDto.builder()
+                .user(user)
+                .group(group)
+                .build();
         groupMemberService.saveGroupMember(groupMemberDto);
         return "redirect:{userEmail}/groups";
     }
 }
+/*
+@PostMapping("{userEmail}/groups/new")
+public String saveGroup(@PathVariable("userEmail") String userEmail, HttpServletRequest request, @Valid @ModelAttribute("group") GroupDto groupDto, BindingResult bindingResult, Model model){
+    if(bindingResult.hasErrors()){
+        model.addAttribute("group", groupDto);
+        return "groups-create";
+    }
+
+    Long id = null;
+    String idParam = request.getParameter("id");
+    if(idParam != null && !idParam.isEmpty()){
+        id = Long.parseLong(idParam);
+        groupDto.setId(id);
+    }
+
+    Group group = groupService.saveGroup(groupDto);
+    User user = userRepository.findUserByEmail(userEmail);
+    GroupMemberDto groupMemberDto = GroupMemberDto.builder()
+            .user(user)
+            .group(group)
+            .build();
+    if (group.getId() != null) {
+        GroupMemberPK groupMemberPK = new GroupMemberPK();
+        groupMemberPK.setGroupId(group.getId());
+        groupMemberPK.setUserEmail(user.getEmail());
+    }
+    groupMemberService.saveGroupMember(groupMemberDto);
+    return "redirect:{userEmail}/groups";
+}
+ */

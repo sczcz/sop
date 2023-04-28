@@ -21,7 +21,7 @@
           <h3 class="mb-4 text-center">Ny grupp</h3>
           <form role="form" method="post" th:action="@{/{userEmail}/groups/new(userEmail=${userEmail})}" th:object="${group}">
           <div class="form-group">
-            <input type="hidden" class="form-control" id="id" name="id" th:field="*{id}" value="1">
+            <input type="hidden" class="form-control" id="id" name="id" th:field="*{id}" value="1L">
             <input type="text" class="form-control" id="name" name="name" th:field="*{name}" placeholder="Gruppnamn" required>
             <p th:if="${#fields.hasErrors('name')}" class="text-danger" th:errors="*{name}"></p>
             <div class="form-group">
