@@ -10,7 +10,6 @@ import java.time.LocalDateTime;
 @Builder
 public class GroupDto {
 
-    private Long id;
     @NotEmpty(message = "Group must have a name")
     private String name;
     private LocalDateTime createdOn;
