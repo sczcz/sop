@@ -26,6 +26,11 @@ public class TransactionServiceImpl implements TransactionService {
         return transactionRepository.save(transaction);
     }
 
+    @Override
+    public List<Transaction> getAllTransactions() {
+        return transactionRepository.findAll();
+    }
+
     private TransactionDto mapToTransactionDto(Transaction transaction) {
         return TransactionDto.builder()
                 .id(transaction.getId())
