@@ -36,7 +36,7 @@ public class GroupController {
         model.addAttribute ("group", groupDto);
         return "groups-detail";
     }
-    @GetMapping ("/{userEmail}/groups")
+    @GetMapping ("{userEmail}/groups")
     public String groupList(@PathVariable("userEmail") String userEmail, Model model) {
         List<GroupDto> groups = groupMemberService.findGroupsByUserEmail(userEmail);
         model.addAttribute("groups", groups);
@@ -52,7 +52,7 @@ public class GroupController {
     }
 
     @PostMapping("{userEmail}/groups/new")
-    public String saveGroup(@PathVariable("userEmail") String userEmail, @RequestParam("id") Long id, @Valid @ModelAttribute("group") GroupDto groupDto, BindingResult bindingResult, Model model){
+    public String saveGroup(@PathVariable("userEmail") String userEmail, @RequestParam("name = id") Long id, @Valid @ModelAttribute("group") GroupDto groupDto, BindingResult bindingResult, Model model){
         if(bindingResult.hasErrors()){
             model.addAttribute("group", groupDto);
             return "groups-create";
