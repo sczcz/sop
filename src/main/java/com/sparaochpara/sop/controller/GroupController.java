@@ -52,7 +52,7 @@ public class GroupController {
     }
 
     @PostMapping("{userEmail}/groups/new")
-    public String saveGroup(@PathVariable("userEmail") String userEmail, @RequestParam("name = id") Long id, @Valid @ModelAttribute("group") GroupDto groupDto, BindingResult bindingResult, Model model){
+    public String saveGroup(@PathVariable("userEmail") String userEmail, @RequestParam("id") Long id, @Valid @ModelAttribute("group") GroupDto groupDto, BindingResult bindingResult, Model model){
         if(bindingResult.hasErrors()){
             model.addAttribute("group", groupDto);
             return "groups-create";
