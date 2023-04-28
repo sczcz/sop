@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+  <title>Spara och Para - Ny grupp</title>
+  <th:block th:replace="~{layout.html :: head}"></th:block>
+</head>
+
+<body class="img js-fullheight" style="background-image: url(/images/test_copy.jpg);">
+<section class="ftco-section">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-6 text-center mb-5">
+        <h2 class="heading-section">Spara och Para</h2>
+      </div>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-md-6 col-lg-4">
+        <div class="login-wrap p-0">
+          <h3 class="mb-4 text-center">Ny grupp</h3>
+          <form role="form" method="post" th:action="@{/{userEmail}/groups/new(userEmail=${userEmail})}" th:object="${group}">
+          <div class="form-group">
+              <input type="text" class="form-control" id="name" name="name" th:field="*{name}" placeholder="Gruppnamn" required>
+              <p th:if="${#fields.hasErrors('name')}" class="text-danger" th:errors="*{name}"></p>
+            <div class="form-group">
+              <button type="submit" class="form-control btn btn-primary submit px-3 create-group-btn">Skapa grupp</button>
+            </div>
+            </div>
+          </form>
+          <p class="w-100 text-center"><a th:href="@{../}">— Redan konto? Logga in —</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div th:replace="~{layout.html :: menu}">
+</div>
+
+<div th:replace="~{layout.html :: scripts}">
+</div>
+
+</body>
+</html>

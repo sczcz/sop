@@ -29,6 +29,12 @@ public class GroupServiceImpl implements GroupService{
         return mapToGroupDto(group);
     }
 
+    @Override
+    public Group saveGroup(GroupDto groupDto) {
+        Group group = mapToGroup(groupDto);
+        return groupRepository.save(group);
+    }
+
     private GroupDto mapToGroupDto(Group group){
         GroupDto groupDto = GroupDto.builder()
                 .id(group.getId())
@@ -37,5 +43,15 @@ public class GroupServiceImpl implements GroupService{
                 .updatedOn(group.getUpdatedOn())
                 .build();
         return groupDto;
+    }
+
+    private Group mapToGroup(GroupDto groupDto){
+        Group group = Group.builder()
+                .id(groupDto.getId())
+                .createdOn(groupDto.getCreatedOn())
+                .name(groupDto.getName())
+                .updatedOn(groupDto.getUpdatedOn())
+                .build();
+        return group;
     }
 }
