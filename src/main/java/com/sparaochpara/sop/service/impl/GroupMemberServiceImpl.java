@@ -44,7 +44,8 @@ public class GroupMemberServiceImpl implements GroupMemberService {
     public List<GroupDto> findGroupsByUserEmail(String email) {
         User user = userRepository.findUserByEmail(email);
         List<Group> groups = groupMemberRepository.findByUser(user);
-        return groups.stream().map(group -> mapToGroupDto(group)).collect(Collectors.toList());
+        return groups.stream().map((group) -> mapToGroupDto(group)).collect(Collectors.toList());
+
     }
 
     private GroupDto mapToGroupDto(Group group){
