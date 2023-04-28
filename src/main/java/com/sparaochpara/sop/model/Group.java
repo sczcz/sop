@@ -27,4 +27,8 @@ public class Group {
     private LocalDateTime createdOn;
     @UpdateTimestamp
     private LocalDateTime updatedOn;
+
+    public String getName() {
+        return name;
+    }
 }

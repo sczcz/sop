@@ -9,9 +9,9 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 @Service
-public class Transactionimpl implements TransactionService {
+public class TransactionServiceImpl implements TransactionService {
     private TransactionRepository transactionRepository;
-    public Transactionimpl(TransactionRepository transactionRepository) {
+    public TransactionServiceImpl(TransactionRepository transactionRepository) {
         this.transactionRepository = transactionRepository;
     }
     @Override
@@ -19,8 +19,15 @@ public class Transactionimpl implements TransactionService {
         List<Transaction> transactions = transactionRepository.findAll();
         return transactions.stream().map((transaction) -> mapToTransactionDto(transaction)).collect(Collectors.toList());
     }
+
+    @Override
+    public Transaction saveTransaction(TransactionDto transactionDto) {
+        Transaction transaction = mapToTransaction(transactionDto);
+        return transactionRepository.save(transaction);
+    }
+
     private TransactionDto mapToTransactionDto(Transaction transaction) {
-        TransactionDto transactionDto = TransactionDto.builder()
+        return TransactionDto.builder()
                 .id(transaction.getId())
                 .description(transaction.getDescription())
                 .amount(transaction.getAmount())
@@ -28,7 +35,20 @@ public class Transactionimpl implements TransactionService {
                 .createdOn(transaction.getCreatedOn())
                 .updatedOn(transaction.getUpdatedOn())
                 .user(transaction.getUser())
+                .group(transaction.getGroup())
                 .build();
-        return transactionDto;
+    }
+
+    private Transaction mapToTransaction(TransactionDto transactionDto) {
+        return Transaction.builder()
+                .id(transactionDto.getId())
+                .description(transactionDto.getDescription())
+                .amount(transactionDto.getAmount())
+                .category(transactionDto.getCategory())
+                .createdOn(transactionDto.getCreatedOn())
+                .updatedOn(transactionDto.getUpdatedOn())
+                .user(transactionDto.getUser())
+                .group(transactionDto.getGroup())
+                .build();
     }
 }

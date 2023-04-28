@@ -1,30 +1,46 @@
-<html xmlns:th="http://thymeleaf.org">
-<body class="d-flex flex-column h-100">
-<main class="flex-shrink-0">
-    <!-- Navigation-->
-    <!-- Page Content-->
-    <section class="py-5">
-        <div class="container px-5 my-5">
-            <div class="text-center mb-5">
-                <h1 class="fw-bolder">Spara och Para</h1>
-                <p class="lead fw-normal text-muted mb-0">Fetch group id and name</p>
+<!doctype html>
+<html
+        lang="en"
+        xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <title>Spara och Para - Grupplista</title>
+    <th:block th:replace="~{layout.html :: head}"></th:block>
+</head>
+
+<body class="img js-fullheight" style="background-image: url(/images/test_copy.jpg);">
+<section class="ftco-section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6 text-center mb-5">
+                <h2 class="heading-section">Spara och Para</h2>
             </div>
-            <div class="row gx-5">
-                <div th:each="group : ${groups}" class="col-lg-6">
-                    <div class="position-relative mb-5">
-                        <a th:text="${group.id}" class="h3 fw-bolder text-decoration-none link-dark stretched-link">Project name</a>
-                        <a th:text="${group.name}" class="h3 fw-bolder text-decoration-none link-dark stretched-link">Project name</a>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-4">
+                <div class="login-wrap p-0">
+                    <h3 class="mb-4 text-center">Grupper</h3>
+                    <div th:each="group : ${groups}" class="col-lg-6 mb-2 text-center mx-auto" style="min-width: 250px; max-width: fit-content; border: 1px solid #ccc; background-color: rgba(255, 255, 255, 0.8);">
+                        <div class="position-relative mb-2">
+                            <div style="display: inline-block;">
+                                <p th:text="${group.getId()}" class="h3 fw-bolder text-decoration-none link-dark stretched-link" href="#!" style="display: inline-block; font-size: 14px;"></p>
+                                <p th:text="${group.getName()}" class="h3 fw-bolder text-decoration-none link-dark stretched-link" href="#!" style="display: inline-block; font-size: 14px;"></p>
+                            </div>
+                        </div>
+
                     </div>
+                    <p class="w-100 text-center"><a th:href="">— Skapa ny grupp —</a></p>
                 </div>
             </div>
         </div>
-    </section>
-</main>
-<!-- Footer-->
+    </div>
+</section>
 
-<!-- Bootstrap core JS-->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-<!-- Core theme JS-->
-<script src="js/scripts.js"></script>
+<div th:replace="~{layout.html :: menu}">
+</div>
+
+<div th:replace="~{layout.html :: scripts}">
+</div>
+
 </body>
 </html>

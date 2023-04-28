@@ -6,24 +6,23 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.swing.*;
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Entity
 @Table(name = "\"group_member\"")
-public class Groupmember {
+public class GroupMember {
+    @EmbeddedId
+    private GroupMemberPK groupMemberPK;
 
-    @Id
     @ManyToOne
+    @MapsId("groupId")
     @JoinColumn(name = "group_id", referencedColumnName = "id")
     private Group group;
-    @Id
+
     @ManyToOne
-    @JoinColumn(name = "email", referencedColumnName = "email")
+    @MapsId("userEmail")
+    @JoinColumn(name = "user_email", referencedColumnName = "email")
     private User user;
-
-
 }

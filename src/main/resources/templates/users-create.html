@@ -1,22 +1,12 @@
 <!doctype html>
-<html
-        lang="en"
-        xmlns:th="http://www.thymeleaf.org"
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
         >
 <head>
   <title>Spara och Para - Ny användare</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-  <th:block th:with="fontUrl='https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap'">
-    <link rel="stylesheet" th:href="@{${fontUrl}}"/>
-  </th:block>
-
-  <link rel="stylesheet" th:href="@{https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css}">
-
-  <link rel="stylesheet" th:href="@{/css/style.css}">
-
+  <th:block th:replace="~{layout.html :: head}"></th:block>
 </head>
+
 <body class="img js-fullheight" style="background-image: url(/images/test_copy.jpg);">
 <section class="ftco-section">
   <div class="container">
@@ -50,7 +40,7 @@
               <button type="submit" class="form-control btn btn-primary submit px-3">Skapa användare</button>
             </div>
           </form>
-          <p class="w-100 text-center"><a href="index.html">— Redan konto? Logga in —</a></p>
+          <p class="w-100 text-center"><a th:href="@{../}">— Redan konto? Logga in —</a></p>
         </div>
       </div>
     </div>
@@ -60,10 +50,8 @@
 <div th:replace="~{layout.html :: menu}">
 </div>
 
-<script th:src="@{/js/jquery.min.js}"></script>
-<script th:src="@{/js/popper.js}"></script>
-<script th:src="@{/js/bootstrap.min.js}"></script>
-<script th:src="@{/js/main.js}"></script>
+<div th:replace="~{layout.html :: scripts}">
+</div>
 
 </body>
 </html>
