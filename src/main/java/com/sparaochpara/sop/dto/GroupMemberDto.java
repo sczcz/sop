@@ -1,6 +1,7 @@
 package com.sparaochpara.sop.dto;
 
 import com.sparaochpara.sop.model.Group;
+import com.sparaochpara.sop.model.GroupMemberPK;
 import com.sparaochpara.sop.model.User;
 import lombok.Builder;
 import lombok.Data;
@@ -8,6 +9,7 @@ import lombok.Data;
 @Data
 @Builder
 public class GroupMemberDto {
+    private GroupMemberPK groupMemberPK;
     private Group group;
     private User user;
 }

@@ -5,6 +5,7 @@ import com.sparaochpara.sop.dto.GroupMemberDto;
 import com.sparaochpara.sop.dto.UserDto;
 import com.sparaochpara.sop.model.Group;
 import com.sparaochpara.sop.model.GroupMember;
+import com.sparaochpara.sop.model.GroupMemberPK;
 import com.sparaochpara.sop.model.User;
 import com.sparaochpara.sop.repository.GroupMemberRepository;
 import com.sparaochpara.sop.repository.UserRepository;
@@ -13,7 +14,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
 @Service
 public class GroupMemberServiceImpl implements GroupMemberService {
     private GroupMemberRepository groupMemberRepository;
@@ -36,7 +36,14 @@ public class GroupMemberServiceImpl implements GroupMemberService {
 
     @Override
     public GroupMember saveGroupMember(GroupMemberDto groupMemberDto) {
-        GroupMember groupMember = mapToGroupMember(groupMemberDto);
+        GroupMemberPK groupMemberPK = groupMemberDto.getGroupMemberPK();
+        User user = groupMemberDto.getUser();
+        Group group = groupMemberDto.getGroup();
+
+        GroupMember groupMember = new GroupMember();
+        groupMember.setGroupMemberPK(groupMemberPK);
+        groupMember.setUser(user);
+        groupMember.setGroup(group);
         return groupMemberRepository.save(groupMember);
     }
 

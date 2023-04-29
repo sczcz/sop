@@ -4,8 +4,10 @@ import com.sparaochpara.sop.dto.GroupDto;
 import com.sparaochpara.sop.dto.GroupMemberDto;
 import com.sparaochpara.sop.dto.UserDto;
 import com.sparaochpara.sop.model.Group;
+import com.sparaochpara.sop.model.GroupMember;
 import com.sparaochpara.sop.model.GroupMemberPK;
 import com.sparaochpara.sop.model.User;
+import com.sparaochpara.sop.repository.GroupMemberRepository;
 import com.sparaochpara.sop.repository.UserRepository;
 import com.sparaochpara.sop.service.GroupMemberService;
 import com.sparaochpara.sop.service.GroupService;
@@ -61,48 +63,22 @@ public class GroupController {
         if(id != null){
             groupDto.setId(id);
         }
+        else {groupDto.setId(1L);}
         Group group = groupService.saveGroup(groupDto);
         User user = userRepository.findUserByEmail(userEmail);
+        GroupMemberPK groupMemberPK = new GroupMemberPK();
         if (group.getId() != null) {
-            GroupMemberPK groupMemberPK = new GroupMemberPK();
             groupMemberPK.setGroupId(group.getId());
             groupMemberPK.setUserEmail(user.getEmail());
+            GroupMember groupMember = new GroupMember();
+            groupMember.setGroupMemberPK(groupMemberPK);
         }
         GroupMemberDto groupMemberDto = GroupMemberDto.builder()
+                .groupMemberPK(groupMemberPK)
                 .user(user)
                 .group(group)
                 .build();
         groupMemberService.saveGroupMember(groupMemberDto);
-        return "redirect:{userEmail}/groups";
+        return "redirect:/" + userEmail + "/groups";
     }
 }
-/*
-@PostMapping("{userEmail}/groups/new")
-public String saveGroup(@PathVariable("userEmail") String userEmail, HttpServletRequest request, @Valid @ModelAttribute("group") GroupDto groupDto, BindingResult bindingResult, Model model){
-    if(bindingResult.hasErrors()){
-        model.addAttribute("group", groupDto);
-        return "groups-create";
-    }
-
-    Long id = null;
-    String idParam = request.getParameter("id");
-    if(idParam != null && !idParam.isEmpty()){
-        id = Long.parseLong(idParam);
-        groupDto.setId(id);
-    }
-
-    Group group = groupService.saveGroup(groupDto);
-    User user = userRepository.findUserByEmail(userEmail);
-    GroupMemberDto groupMemberDto = GroupMemberDto.builder()
-            .user(user)
-            .group(group)
-            .build();
-    if (group.getId() != null) {
-        GroupMemberPK groupMemberPK = new GroupMemberPK();
-        groupMemberPK.setGroupId(group.getId());
-        groupMemberPK.setUserEmail(user.getEmail());
-    }
-    groupMemberService.saveGroupMember(groupMemberDto);
-    return "redirect:{userEmail}/groups";
-}
- */
