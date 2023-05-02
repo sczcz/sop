@@ -2,8 +2,6 @@ package com.sparaochpara.sop.controller;
 
 import com.sparaochpara.sop.dto.CategoryDto;
 import com.sparaochpara.sop.dto.TransactionDto;
-import com.sparaochpara.sop.model.Category;
-import com.sparaochpara.sop.model.Transaction;
 import com.sparaochpara.sop.repository.TransactionRepository;
 import com.sparaochpara.sop.service.CategoryService;
 import com.sparaochpara.sop.service.TransactionService;
@@ -60,7 +58,7 @@ public class TransactionController {
                 dataMap.put(category.getName(), categoryAmount);
             }
         }
-
+        System.out.println(dataMap);
         model.addAttribute("dataMap", dataMap);
         model.addAttribute("totalAmount", totalAmount);
         return "ass";
