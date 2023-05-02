@@ -46,17 +46,12 @@
     }
   };
 
-  console.log(dataMap);
-  console.log(totalAmount);
-
   var ctx = document.getElementById('pie-chart').getContext('2d');
   new Chart(ctx, {
     type: 'pie',
     data: data,
     options: options
   });
-
-  console.log(document.getElementById('pie-chart'));
 
 </script>
 </body>
