@@ -43,6 +43,7 @@ public class GroupController {
     public String groupList(@PathVariable("userEmail") String userEmail, Model model) {
         List<GroupDto> groups = groupMemberService.findGroupsByUserEmail(userEmail);
         model.addAttribute("groups", groups);
+        model.addAttribute("userEmail", userEmail);
         return "groups-list";
     }
 
