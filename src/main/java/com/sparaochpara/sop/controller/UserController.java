@@ -25,10 +25,12 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/users")
-    public String listUsers(Model model){
+    @GetMapping("{userEmail}/users")
+    public String listUsers(@PathVariable("userEmail") String userEmail, Model model){
         List<UserDto> users = userService.findAllUsers();
+        String firstName = userService.findUserByEmail(userEmail).getFirstName();
         model.addAttribute("users", users);
+        model.addAttribute("firstName", firstName);
         return "users-list";
 
     }
@@ -54,7 +56,8 @@ public class UserController {
             return "users-create";
         }
         userService.saveUser(userDto);
-        return "redirect:/users";
+        String userEmail = userDto.getEmail();
+        return "redirect:/" + userEmail + "/users";
     }
 
     @GetMapping("/users/{email}/edit")
