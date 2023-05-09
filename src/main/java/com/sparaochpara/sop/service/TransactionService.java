@@ -12,5 +12,4 @@ public interface TransactionService {
     List<TransactionDto>findAllTransactions();
 
     Transaction saveTransaction(TransactionDto transactionDto);
-    public List<Transaction> getAllTransactions();
 }

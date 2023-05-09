@@ -6,6 +6,7 @@ import com.sparaochpara.sop.repository.TransactionRepository;
 import com.sparaochpara.sop.service.TransactionService;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 @Service
@@ -17,6 +18,7 @@ public class TransactionServiceImpl implements TransactionService {
     @Override
     public List<TransactionDto> findAllTransactions() {
         List<Transaction> transactions = transactionRepository.findAll();
+        transactions.sort(Comparator.comparingLong(Transaction :: getId));
         return transactions.stream().map((transaction) -> mapToTransactionDto(transaction)).collect(Collectors.toList());
     }
 
@@ -24,11 +26,6 @@ public class TransactionServiceImpl implements TransactionService {
     public Transaction saveTransaction(TransactionDto transactionDto) {
         Transaction transaction = mapToTransaction(transactionDto);
         return transactionRepository.save(transaction);
-    }
-
-    @Override
-    public List<Transaction> getAllTransactions() {
-        return transactionRepository.findAll();
     }
 
     private TransactionDto mapToTransactionDto(Transaction transaction) {
