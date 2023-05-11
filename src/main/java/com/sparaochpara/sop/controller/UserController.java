@@ -35,12 +35,13 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/users")
-    public String listUsers(Model model){
+    @GetMapping("{userEmail}/users")
+    public String listUsers(@PathVariable("userEmail") String userEmail, Model model) {
         List<UserDto> users = userService.findAllUsers();
+        String firstName = userService.findUserByEmail(userEmail).getFirstName();
         model.addAttribute("users", users);
+        model.addAttribute("firstName", firstName);
         return "users-list";
-
     }
 
     @GetMapping("/users/{email}")
@@ -60,42 +61,21 @@ public class UserController {
     @PostMapping("/users/new")
     public String saveUser(@Valid @ModelAttribute("user") UserDto userDto, BindingResult bindingResult, Model model){
         if(bindingResult.hasErrors()){
-            System.out.println(userDto.getEmail());
             model.addAttribute("user", userDto);
             return "users-create";
         }
         else {
             List<UserDto> exist = userService.findAllUsers();
-            //System.out.println(userDto.getEmail());
-            //System.out.println(userDto.getEmail().length());
             for (UserDto user : exist) {
-                //System.out.println(user.getEmail());
-                //System.out.println(user.getEmail().length());
                 if (user.getEmail().equals(userDto.getEmail())) {
-                    System.out.println(userDto.getEmail());
                     model.addAttribute("error", "Email already exists");
                     return "users-create";
                 }
             }
         }
-
         userService.saveUser(userDto);
         return "redirect:/users";
     }
-
-
-   /* @PostMapping("/users/new")
-    public String emailExists(Model model, UserDto userDto){
-        List<UserDto> exist = userService.findAllUsers();
-        for(UserDto user : exist){
-            if(user.getEmail()==userDto.getEmail()){
-                System.out.println(user.getEmail());
-                model.addAttribute("error", "Email already exists");
-                return "users-create";
-            }
-        }
-        return "redirect:/users";
-    }*/
 
     @GetMapping("/users/{email}/edit")
     public String editUserForm(@PathVariable("email") String email, Model model){
