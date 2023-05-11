@@ -27,16 +27,16 @@ public class LoginController {
     }
 
     @PostMapping("/login")
-    public String processLoginForm(@RequestParam String email, @RequestParam String password, Model model, HttpSession session, RedirectAttributes redirectAttributes) {
+    public String processLoginForm(@RequestParam String email, @RequestParam String password, Model model /*HttpSession session, RedirectAttributes redirectAttributes*/) {
         Optional<User> userOptional = userRepository.findById(email);
         if (userOptional.isPresent()) {
             User user = userOptional.get();
             if (user.getPassword().equals(password)) {
                 model.addAttribute("user", user);
-                session.setAttribute("user", user);
-                String sessionToken = generateSessionToken();
-                session.setAttribute("sessionToken", sessionToken);
-                redirectAttributes.addAttribute("sessionToken", sessionToken);
+                //session.setAttribute("user", user);
+               // String sessionToken = generateSessionToken();
+                //session.setAttribute("sessionToken", sessionToken);
+               // redirectAttributes.addAttribute("sessionToken", sessionToken);
                 return "redirect:/users";
             }
         }

@@ -46,11 +46,6 @@ public class TransactionController {
                 if (transaction.getCategory().getId() == category.getId()) {
                     categoryAmount += transaction.getAmount();
                     totalAmount += transaction.getAmount();
-                    System.out.println(transaction.getId());
-                    System.out.println(transaction.getAmount());
-                    System.out.println(transaction.getDescription());
-                    System.out.println(transaction.getCategory().getName());
-                    System.out.println(categoryAmount);
                 }
             }
 
