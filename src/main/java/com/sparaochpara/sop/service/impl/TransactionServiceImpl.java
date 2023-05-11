@@ -2,7 +2,6 @@ package com.sparaochpara.sop.service.impl;
 
 import com.sparaochpara.sop.dto.TransactionDto;
 import com.sparaochpara.sop.model.Transaction;
-import com.sparaochpara.sop.model.User;
 import com.sparaochpara.sop.repository.TransactionRepository;
 import com.sparaochpara.sop.repository.UserRepository;
 import com.sparaochpara.sop.service.TransactionService;
