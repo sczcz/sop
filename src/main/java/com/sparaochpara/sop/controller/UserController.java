@@ -1,36 +1,44 @@
 package com.sparaochpara.sop.controller;
 
+import com.sparaochpara.sop.dto.CategoryDto;
+import com.sparaochpara.sop.dto.TransactionDto;
 import com.sparaochpara.sop.dto.UserDto;
 import com.sparaochpara.sop.model.User;
+import com.sparaochpara.sop.repository.TransactionRepository;
+import com.sparaochpara.sop.repository.UserRepository;
+import com.sparaochpara.sop.service.TransactionService;
 import com.sparaochpara.sop.service.UserService;
+import com.sparaochpara.sop.service.impl.TransactionServiceImpl;
+import com.sparaochpara.sop.service.impl.UserServiceImpl;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+
 
 @Controller
 public class UserController {
 
     private UserService userService;
+    private UserRepository userRepository;
 
     @Autowired
     public UserController(UserService userService) {
         this.userService = userService;
     }
 
-    @GetMapping("{userEmail}/users")
-    public String listUsers(@PathVariable("userEmail") String userEmail, Model model){
+    @GetMapping("/users")
+    public String listUsers(Model model){
         List<UserDto> users = userService.findAllUsers();
-        String firstName = userService.findUserByEmail(userEmail).getFirstName();
         model.addAttribute("users", users);
-        model.addAttribute("firstName", firstName);
         return "users-list";
 
     }
@@ -52,13 +60,42 @@ public class UserController {
     @PostMapping("/users/new")
     public String saveUser(@Valid @ModelAttribute("user") UserDto userDto, BindingResult bindingResult, Model model){
         if(bindingResult.hasErrors()){
+            System.out.println(userDto.getEmail());
             model.addAttribute("user", userDto);
             return "users-create";
         }
+        else {
+            List<UserDto> exist = userService.findAllUsers();
+            //System.out.println(userDto.getEmail());
+            //System.out.println(userDto.getEmail().length());
+            for (UserDto user : exist) {
+                //System.out.println(user.getEmail());
+                //System.out.println(user.getEmail().length());
+                if (user.getEmail().equals(userDto.getEmail())) {
+                    System.out.println(userDto.getEmail());
+                    model.addAttribute("error", "Email already exists");
+                    return "users-create";
+                }
+            }
+        }
+
         userService.saveUser(userDto);
-        String userEmail = userDto.getEmail();
-        return "redirect:/" + userEmail + "/users";
+        return "redirect:/users";
     }
+
+
+   /* @PostMapping("/users/new")
+    public String emailExists(Model model, UserDto userDto){
+        List<UserDto> exist = userService.findAllUsers();
+        for(UserDto user : exist){
+            if(user.getEmail()==userDto.getEmail()){
+                System.out.println(user.getEmail());
+                model.addAttribute("error", "Email already exists");
+                return "users-create";
+            }
+        }
+        return "redirect:/users";
+    }*/
 
     @GetMapping("/users/{email}/edit")
     public String editUserForm(@PathVariable("email") String email, Model model){
@@ -77,4 +114,10 @@ public class UserController {
         userService.updateUser(user);
         return "redirect:/users";
     }
+
+
+
+
+
+
 }

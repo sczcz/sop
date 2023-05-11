@@ -4,6 +4,7 @@
   <head>
 	  <title>Spara och Para - Login</title>
 	  <th:block th:replace="~{layout.html :: head}"></th:block>
+	  <script th:src="@{/js/Chart.min.js}"></script>
   </head>
 
 	<body class="img js-fullheight" style="background-image: url(/images/test_copy.jpg);">
@@ -41,6 +42,8 @@
 			</div>
 		</div>
 	</section>
+
+	<div th:replace="~{layout.html :: piechart}" style="float:right;"></div>
 
 	<div th:replace="~{layout.html :: menu}">
 	</div>

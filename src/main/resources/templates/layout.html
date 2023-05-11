@@ -35,6 +35,54 @@
     <script th:src="@{/js/main.js}"></script>
 </div>
 
+<div th:fragment="piechart">
+    <script th:inline="javascript">
+        var data = {
+            labels: [],
+            datasets: [{
+                data: [],
+                backgroundColor: []
+            }]
+        };
+
+        function getRandomColor() {
+            var letters = '0123456789ABCDEF';
+            var color = '#';
+
+            for (var i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+
+            return color;
+        }
+
+        var dataMap = /*[[${dataMap}]]*/ {};
+
+        Object.keys(dataMap).forEach(function(key) {
+            data.labels.push(key);
+            data.datasets[0].data.push(dataMap[key]);
+            data.datasets[0].backgroundColor.push(getRandomColor());
+        });
+
+        var totalAmount = /*[[${totalAmount}]]*/ 0;
+        var options = {
+            responsive: true,
+            title: {
+                display: true,
+                text: 'Transactions by Category (Total Amount: ' + totalAmount.toFixed(2) + ')'
+            }
+        };
+
+        var ctx = document.getElementById('pie-chart').getContext('2d');
+        new Chart(ctx, {
+            type: 'pie',
+            data: data,
+            options: options
+        });
+
+    </script>
+</div>
+
 </body>
 </html>
 
