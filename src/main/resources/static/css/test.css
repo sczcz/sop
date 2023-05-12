@@ -25,6 +25,14 @@ body {
     width: 100%;
 }
 
+#ihcx {
+    background-repeat: space;
+    background-position: left top;
+    background-attachment: scroll;
+    background-size: cover;
+    background-image: url(../images/test_copy.jpg);
+}
+
 @media (max-width: 768px) {
     .gjs-row {
         flex-direction: column;
