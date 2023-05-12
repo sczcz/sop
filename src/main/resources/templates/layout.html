@@ -17,12 +17,11 @@
 <body>
 <div th:fragment="menu">
     <div style="position: fixed; bottom: 0; width: 100%; background-color: #333; color: white; padding: 10px;">
-        <!-- Menu items here -->
         <nav>
             <ul style="display: flex; justify-content: center; align-items: center; margin: 0; padding: 0;">
                 <li style="list-style: none; margin-right: 20px;"><a href="#">Hem</a></li>
-                <li style="list-style: none; margin-right: 20px;"><a href="#">Grupper</a></li>
-                <li style="list-style: none; margin-right: 20px;"><a href="#">Budget</a></li>
+                <li style="list-style: none; margin-right: 20px;"><a th:href="@{'/' + ${userEmail} + '/groups'}">Grupper</a></li>
+                <li style="list-style: none; margin-right: 20px;"><a th:href="@{'/' + ${userEmail} + '/transactions'}">Budget</a></li>
                 <li style="list-style: none; margin-right: 20px;"><a href="#">Inställningar</a></li>
             </ul>
         </nav>

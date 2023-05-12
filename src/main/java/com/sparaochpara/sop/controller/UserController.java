@@ -35,12 +35,13 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/users")
-    public String listUsers(Model model){
+    @GetMapping("{userEmail}/users")
+    public String listUsers(@PathVariable("userEmail") String userEmail, Model model) {
         List<UserDto> users = userService.findAllUsers();
+        String firstName = userService.findUserByEmail(userEmail).getFirstName();
         model.addAttribute("users", users);
+        model.addAttribute("firstName", firstName);
         return "users-list";
-
     }
 
     @GetMapping("/users/{email}")
@@ -60,7 +61,6 @@ public class UserController {
     @PostMapping("/users/new")
     public String saveUser(@Valid @ModelAttribute("user") UserDto userDto, BindingResult bindingResult, Model model){
         if(bindingResult.hasErrors()){
-            System.out.println(userDto.getEmail());
             model.addAttribute("user", userDto);
             return "users-create";
         }
@@ -68,13 +68,11 @@ public class UserController {
             List<UserDto> exist = userService.findAllUsers();
             for (UserDto user : exist) {
                 if (user.getEmail().equals(userDto.getEmail())) {
-                    System.out.println(userDto.getEmail());
                     model.addAttribute("error", "Email already exists");
                     return "users-create";
                 }
             }
         }
-
         userService.saveUser(userDto);
         return "redirect:/users";
     }

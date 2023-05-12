@@ -42,7 +42,10 @@ public class GroupController {
     @GetMapping ("{userEmail}/groups")
     public String groupList(@PathVariable("userEmail") String userEmail, Model model) {
         List<GroupDto> groups = groupMemberService.findGroupsByUserEmail(userEmail);
+        String firstName = userRepository.findUserByEmail(userEmail).getFirstName();
         model.addAttribute("groups", groups);
+        model.addAttribute("userEmail", userEmail);
+        model.addAttribute("firstName", firstName);
         return "groups-list";
     }
 

@@ -1,0 +1,47 @@
+<!doctype html>
+<html
+        lang="en"
+        xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+  <title>Spara och Para - Transaktionslista</title>
+  <th:block th:replace="~{layout.html :: head}"></th:block>
+</head>
+
+<body class="img js-fullheight" style="background-image: url(/images/test_copy.jpg);">
+<section class="ftco-section">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-6 text-center mb-5">
+        <h2 class="heading-section">Spara och Para</h2>
+      </div>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-md-6 col-lg-4">
+        <div class="login-wrap p-0">
+          <h3 class="mb-4 text-center" th:text="${firstName} + '\'s Transaktioner'">User's Transaktioner</h3>
+          <div th:each="transaction : ${transactions}" class="col-lg-6 mb-2 text-center mx-auto" style="min-width: 250px; max-width: fit-content; border: 1px solid #ccc; background-color: rgba(255, 255, 255, 0.8);">
+            <div class="position-relative mb-2">
+              <div style="display: inline-block;">
+                <p th:text="${transaction.id}" class="h3 fw-bolder text-decoration-none link-dark stretched-link" href="#!" style="display: inline-block; font-size: 14px;"></p>
+                <p th:text="${transaction.description}" class="h3 fw-bolder text-decoration-none link-dark stretched-link" href="#!" style="display: inline-block; font-size: 14px;"></p>
+                <p th:text="${transaction.amount}" class="h3 fw-bolder text-decoration-none link-dark stretched-link" href="#!" style="display: inline-block; font-size: 14px;"></p>
+              </div>
+            </div>
+
+          </div>
+          <p class="w-100 text-center"><a th:href="@{/{userEmail}/transactions/new(userEmail=${userEmail})}">— Skapa ny transaktion —</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div th:replace="~{layout.html :: menu}">
+</div>
+
+<div th:replace="~{layout.html :: scripts}">
+</div>
+
+</body>
+</html>
