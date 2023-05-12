@@ -8346,3 +8346,68 @@ textarea.form-control {
         border: 1px solid transparent;
         background: #fbceb5;
         color: #fff; }
+
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+}
+.gjs-row{
+  display:flex;
+  justify-content:flex-start;
+  align-items:stretch;
+  flex-wrap:nowrap;
+  padding:10px;
+}
+.gjs-cell{
+  min-height:75px;
+  flex-grow:1;
+  flex-basis:100%;
+}
+#in97{
+  height:676px;
+  opacity:1;
+  background-repeat:repeat;
+  background-position:left top;
+  background-attachment:scroll;
+  background-size:auto;
+  background-image:url('https://img.freepik.com/free-photo/paper-background_53876-65520.jpg');
+}
+@media (max-width: 768px){
+  .gjs-row{
+    flex-wrap:wrap;
+  }
+}
+#pie-chart-container {
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+* {
+  box-shadow: none !important;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

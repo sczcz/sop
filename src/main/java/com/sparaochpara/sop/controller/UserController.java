@@ -66,11 +66,7 @@ public class UserController {
         }
         else {
             List<UserDto> exist = userService.findAllUsers();
-            //System.out.println(userDto.getEmail());
-            //System.out.println(userDto.getEmail().length());
             for (UserDto user : exist) {
-                //System.out.println(user.getEmail());
-                //System.out.println(user.getEmail().length());
                 if (user.getEmail().equals(userDto.getEmail())) {
                     System.out.println(userDto.getEmail());
                     model.addAttribute("error", "Email already exists");
@@ -82,20 +78,6 @@ public class UserController {
         userService.saveUser(userDto);
         return "redirect:/users";
     }
-
-
-   /* @PostMapping("/users/new")
-    public String emailExists(Model model, UserDto userDto){
-        List<UserDto> exist = userService.findAllUsers();
-        for(UserDto user : exist){
-            if(user.getEmail()==userDto.getEmail()){
-                System.out.println(user.getEmail());
-                model.addAttribute("error", "Email already exists");
-                return "users-create";
-            }
-        }
-        return "redirect:/users";
-    }*/
 
     @GetMapping("/users/{email}/edit")
     public String editUserForm(@PathVariable("email") String email, Model model){

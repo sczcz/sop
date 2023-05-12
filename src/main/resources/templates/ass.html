@@ -3,56 +3,31 @@
       xmlns:th="http://www.thymeleaf.org"
 >
 <head>
-  <title>Transactions Pie Chart</title>
-  <script th:src="@{/js/Chart.min.js}"></script>
+  <title>Dina transaktioner</title>
+  <th:block th:replace="~{layout.html :: head}"></th:block>
+  <style>
+    .gjs-cell.chart-container .pie-chart-container {
+      width: 30%;
+      display: flex;
+      justify-content: flex-end;
+    }
+  </style>
+
 </head>
-<body>
-<canvas id="pie-chart"></canvas>
+<body id="ihcx" class="img js-fullheight" style="background-image: url(/images/pink.jpeg);">
+<div class="gjs-row" id="in97">
+  <div class="gjs-cell">
+    <!-- Content for the left column -->
+  </div>
+  <div id="pie-chart-container">
+    <canvas id="pie-chart" width="300" height="300"></canvas>
+  </div>
 
-<script th:inline="javascript">
-  var data = {
-    labels: [],
-    datasets: [{
-      data: [],
-      backgroundColor: []
-    }]
-  };
+</div>
+<div th:replace="~{layout.html :: piechart}">
+  <div th:with="dataMap=${#httpServletRequest.getRequestURL().toString().replace('http://','').replace('https://','').split('/')[0] + '/ass'}" th:remove="tag">
+  </div>
+</div>
 
-  function getRandomColor() {
-    var letters = '0123456789ABCDEF';
-    var color = '#';
-
-    for (var i = 0; i < 6; i++) {
-      color += letters[Math.floor(Math.random() * 16)];
-    }
-
-    return color;
-  }
-
-  var dataMap = /*[[${dataMap}]]*/ {};
-
-  Object.keys(dataMap).forEach(function(key) {
-    data.labels.push(key);
-    data.datasets[0].data.push(dataMap[key]);
-    data.datasets[0].backgroundColor.push(getRandomColor());
-  });
-
-  var totalAmount = /*[[${totalAmount}]]*/ 0;
-  var options = {
-    responsive: true,
-    title: {
-      display: true,
-      text: 'Transactions by Category (Total Amount: ' + totalAmount.toFixed(2) + ')'
-    }
-  };
-
-  var ctx = document.getElementById('pie-chart').getContext('2d');
-  new Chart(ctx, {
-    type: 'pie',
-    data: data,
-    options: options
-  });
-
-</script>
 </body>
 </html>
