@@ -1,3 +1,4 @@
+/*
 package com.sparaochpara.sop.controller;
 
 import com.sparaochpara.sop.model.User;
@@ -36,3 +37,4 @@ public class LoginController {
         return "index";
     }
 }
+ */

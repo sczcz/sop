@@ -12,11 +12,14 @@ import com.sparaochpara.sop.service.impl.TransactionServiceImpl;
 import com.sparaochpara.sop.service.impl.UserServiceImpl;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -35,8 +38,12 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("{userEmail}/users")
-    public String listUsers(@PathVariable("userEmail") String userEmail, Model model) {
+    @GetMapping("/users")
+    public String listUsers(@AuthenticationPrincipal Principal principal, Model model) {
+        if (principal == null) {
+            return "redirect:/login";
+        }
+        String userEmail = principal.getName();
         List<UserDto> users = userService.findAllUsers();
         String firstName = userService.findUserByEmail(userEmail).getFirstName();
         model.addAttribute("users", users);
@@ -73,6 +80,9 @@ public class UserController {
                 }
             }
         }
+        String encodedPassword = new BCryptPasswordEncoder().encode(userDto.getPassword());
+        userDto.setPassword(encodedPassword);
+
         userService.saveUser(userDto);
         return "redirect:/users";
     }
