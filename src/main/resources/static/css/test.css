@@ -1,0 +1,37 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    height: 100vh;
+}
+
+.gjs-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    height: 100%;
+}
+
+.gjs-cell {
+    min-height: 75px;
+    flex-grow: 1;
+    flex-basis: 50%;
+}
+
+#i7c7 {
+    height: 100%;
+    width: 100%;
+}
+
+@media (max-width: 768px) {
+    .gjs-row {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .gjs-cell {
+        flex-basis: 100%;
+    }
+}

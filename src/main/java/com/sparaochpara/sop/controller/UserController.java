@@ -41,7 +41,7 @@ public class UserController {
         String firstName = userService.findUserByEmail(userEmail).getFirstName();
         model.addAttribute("users", users);
         model.addAttribute("firstName", firstName);
-        return "users-list";
+        return "test";
     }
 
     @GetMapping("/users/{email}")

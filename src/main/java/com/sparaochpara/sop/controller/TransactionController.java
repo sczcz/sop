@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.HashMap;
 import java.util.List;
@@ -46,7 +47,8 @@ public class TransactionController {
     }
 
     @GetMapping("/ass")
-    public String transactionsPieChart(Model model) {
+    @ResponseBody
+    public Map<String, Object> transactionsPieChart(Model model) {
         List<TransactionDto> transactions = transactionService.findAllTransactions();
         List<CategoryDto> categories = categoryService.findAllCategories();
         Map<String, Double> dataMap = new HashMap<>();
@@ -68,7 +70,12 @@ public class TransactionController {
         }
         model.addAttribute("dataMap", dataMap);
         model.addAttribute("totalAmount", totalAmount);
-        return "ass";
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("dataMap", dataMap);
+        response.put("totalAmount", totalAmount);
+
+        return response;
     }
 
 

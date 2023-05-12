@@ -36,52 +36,72 @@
 </div>
 
 <div th:fragment="piechart">
+    <script th:src="@{/js/Chart.min.js}"></script>
+    <canvas id="pie-chart"></canvas>
+
     <script th:inline="javascript">
-        var data = {
-            labels: [],
-            datasets: [{
-                data: [],
-                backgroundColor: []
-            }]
-        };
-
-        function getRandomColor() {
-            var letters = '0123456789ABCDEF';
-            var color = '#';
-
-            for (var i = 0; i < 6; i++) {
-                color += letters[Math.floor(Math.random() * 16)];
-            }
-
-            return color;
-        }
-
-        var dataMap = /*[[${dataMap}]]*/ {};
-
-        Object.keys(dataMap).forEach(function(key) {
-            data.labels.push(key);
-            data.datasets[0].data.push(dataMap[key]);
-            data.datasets[0].backgroundColor.push(getRandomColor());
-        });
-
-        var totalAmount = /*[[${totalAmount}]]*/ 0;
+        var data = null;
         var options = {
             responsive: true,
             title: {
                 display: true,
-                text: 'Transactions by Category (Total Amount: ' + totalAmount.toFixed(2) + ')'
+                text: 'Transactions by Category'
             }
         };
 
         var ctx = document.getElementById('pie-chart').getContext('2d');
-        new Chart(ctx, {
+        var chart = new Chart(ctx, {
             type: 'pie',
             data: data,
             options: options
         });
 
+        // Make an AJAX call to the transactionsPieChart endpoint
+        fetch('/ass')
+            .then(response => response.json())
+            .then(responseData => {
+                if (responseData && responseData.dataMap) {
+                    // Update the chart with the response data
+                    var labels = Object.keys(responseData.dataMap);
+                    var dataValues = Object.values(responseData.dataMap);
+
+                    var backgroundColors = [];
+                    for (var i = 0; i < labels.length; i++) {
+                        backgroundColors.push(getRandomColor());
+                    }
+
+                    var totalAmount = dataValues.reduce((a, b) => a + b, 0);
+                    options.title.text = 'Transactions by Category (Total Amount: ' + totalAmount.toFixed(2) + ')';
+
+                    data = {
+                        labels: labels,
+                        datasets: [{
+                            data: dataValues,
+                            backgroundColor: backgroundColors
+                        }]
+                    };
+
+                    chart.data = data;
+                    chart.update();
+                } else {
+                    console.error('Invalid response data');
+                }
+            })
+            .catch(error => console.error(error));
+
+        function getRandomColor() {
+            var letters = '0123456789ABCDEF';
+            var color = '#';
+            for (var i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        }
     </script>
+
+
 </div>
+
 
 </body>
 </html>
