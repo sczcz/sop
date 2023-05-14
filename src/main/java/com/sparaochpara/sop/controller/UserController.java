@@ -41,6 +41,7 @@ public class UserController {
     @GetMapping("/users")
     public String listUsers(@AuthenticationPrincipal Principal principal, Model model) {
         if (principal == null) {
+            System.out.println("ERROR!");
             return "redirect:/login";
         }
         String userEmail = principal.getName();
