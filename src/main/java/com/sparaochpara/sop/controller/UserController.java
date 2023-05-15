@@ -49,6 +49,7 @@ public class UserController {
         String firstName = userService.findUserByEmail(userEmail).getFirstName();
         model.addAttribute("users", users);
         model.addAttribute("firstName", firstName);
+        System.out.println("PRINCIPAL CREATED!!!");
         return "test";
     }
 
@@ -105,10 +106,4 @@ public class UserController {
         userService.updateUser(user);
         return "redirect:/users";
     }
-
-
-
-
-
-
 }
