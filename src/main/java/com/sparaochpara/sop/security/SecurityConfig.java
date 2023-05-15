@@ -14,10 +14,12 @@ import org.springframework.security.config.annotation.web.configurers.LogoutConf
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.List;
+import java.util.Optional;
 
 @Configuration
 @EnableWebSecurity
@@ -33,7 +35,7 @@ public class SecurityConfig implements WebSecurityConfigurer<WebSecurity> {
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
-                        .loginPage("/")
+                        .loginPage("/login")
                         .defaultSuccessUrl("/users", true)
                         .permitAll()
                 )
@@ -62,6 +64,7 @@ public class SecurityConfig implements WebSecurityConfigurer<WebSecurity> {
             if (userOptional.isPresent()) {
                 User user = userOptional.get();
                 List<GrantedAuthority> authorities = AuthorityUtils.createAuthorityList("USER");
+                System.out.println("USER ADDED TO AUTHORITY-LIST");
                 return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), authorities);
             }
             throw new UsernameNotFoundException("Invalid Email or Password");
@@ -73,4 +76,3 @@ public class SecurityConfig implements WebSecurityConfigurer<WebSecurity> {
         return new BCryptPasswordEncoder();
     }
 }
-

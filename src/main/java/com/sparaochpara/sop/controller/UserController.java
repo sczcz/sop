@@ -20,18 +20,14 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+
 
 
 @Controller
 public class UserController {
 
     private UserService userService;
-    private UserRepository userRepository;
 
     @Autowired
     public UserController(UserService userService) {
@@ -41,6 +37,7 @@ public class UserController {
     @GetMapping("/users")
     public String listUsers(@AuthenticationPrincipal Principal principal, Model model) {
         if (principal == null) {
+            System.out.println("ERROR PRINCIPAL NULL");
             return "redirect:/login";
         }
         String userEmail = principal.getName();
