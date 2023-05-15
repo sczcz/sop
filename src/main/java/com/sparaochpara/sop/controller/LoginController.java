@@ -1,14 +1,21 @@
-/*
 package com.sparaochpara.sop.controller;
 
 import com.sparaochpara.sop.model.User;
 import com.sparaochpara.sop.repository.UserRepository;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.ui.Model;
+
+
+
 import java.util.Optional;
 
 @Controller
@@ -24,17 +31,16 @@ public class LoginController {
     }
 
     @PostMapping("/login")
-    public String processLoginForm(@RequestParam String email, @RequestParam String password, Model model) {
-        Optional<User> userOptional = userRepository.findById(email);
-        if (userOptional.isPresent()) {
-            User user = userOptional.get();
-            if (user.getPassword().equals(password)) {
-                model.addAttribute("user", user);
-                return "redirect:/" + email + "/users";
-            }
+    public String processLoginForm() {
+        return "redirect:/users";
+    }
+
+    @GetMapping("/logout")
+    public String logout(HttpServletRequest request, HttpServletResponse response, Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null) {
+            new SecurityContextLogoutHandler().logout(request, response, authentication);
         }
-        model.addAttribute("error", "Invalid Email or Password");
-        return "index";
+        return "redirect:/";
     }
 }
- */

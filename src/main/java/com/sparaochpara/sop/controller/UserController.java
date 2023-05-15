@@ -13,6 +13,7 @@ import com.sparaochpara.sop.service.impl.UserServiceImpl;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -35,12 +36,12 @@ public class UserController {
     }
 
     @GetMapping("/users")
-    public String listUsers(@AuthenticationPrincipal Principal principal, Model model) {
-        if (principal == null) {
+    public String listUsers(@AuthenticationPrincipal UserDetails userDetails, Model model) {
+        if (userDetails == null) {
             System.out.println("ERROR PRINCIPAL NULL");
             return "redirect:/login";
         }
-        String userEmail = principal.getName();
+        String userEmail = userDetails.getUsername();
         List<UserDto> users = userService.findAllUsers();
         String firstName = userService.findUserByEmail(userEmail).getFirstName();
         model.addAttribute("users", users);

@@ -15,14 +15,15 @@
     </th:block>
 </head>
 <body>
+
 <div th:fragment="menu">
     <div style="position: fixed; bottom: 0; width: 100%; background-color: #333; color: white; padding: 10px;">
         <nav>
             <ul style="display: flex; justify-content: center; align-items: center; margin: 0; padding: 0;">
                 <li style="list-style: none; margin-right: 20px;"><a href="#">Hem</a></li>
-                <li style="list-style: none; margin-right: 20px;"><a th:href="@{'/' + ${userEmail} + '/groups'}">Grupper</a></li>
-                <li style="list-style: none; margin-right: 20px;"><a th:href="@{'/' + ${userEmail} + '/transactions'}">Budget</a></li>
-                <li style="list-style: none; margin-right: 20px;"><a href="#">Inställningar</a></li>
+                <li style="list-style: none; margin-right: 20px;"><a th:href="@{'/groups'}">Grupper</a></li>
+                <li style="list-style: none; margin-right: 20px;"><a th:href="@{'/transactions'}">Budget</a></li>
+                <li style="list-style: none; margin-right: 20px;"><a th:href="@{'/logout'}">Logga ut</a></li>
             </ul>
         </nav>
     </div>
