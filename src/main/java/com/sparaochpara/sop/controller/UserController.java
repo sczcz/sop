@@ -12,35 +12,41 @@ import com.sparaochpara.sop.service.impl.TransactionServiceImpl;
 import com.sparaochpara.sop.service.impl.UserServiceImpl;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.security.Principal;
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+
 
 
 @Controller
 public class UserController {
 
     private UserService userService;
-    private UserRepository userRepository;
 
     @Autowired
     public UserController(UserService userService) {
         this.userService = userService;
     }
 
-    @GetMapping("{userEmail}/users")
-    public String listUsers(@PathVariable("userEmail") String userEmail, Model model) {
+    @GetMapping("/users")
+    public String listUsers(@AuthenticationPrincipal UserDetails userDetails, Model model) {
+        if (userDetails == null) {
+            System.out.println("ERROR PRINCIPAL NULL");
+            return "redirect:/login";
+        }
+        String userEmail = userDetails.getUsername();
         List<UserDto> users = userService.findAllUsers();
         String firstName = userService.findUserByEmail(userEmail).getFirstName();
         model.addAttribute("users", users);
         model.addAttribute("firstName", firstName);
+        System.out.println("PRINCIPAL CREATED!!!");
         return "test";
     }
 
@@ -73,6 +79,9 @@ public class UserController {
                 }
             }
         }
+        String encodedPassword = new BCryptPasswordEncoder().encode(userDto.getPassword());
+        userDto.setPassword(encodedPassword);
+
         userService.saveUser(userDto);
         return "redirect:/users";
     }
@@ -94,10 +103,4 @@ public class UserController {
         userService.updateUser(user);
         return "redirect:/users";
     }
-
-
-
-
-
-
 }

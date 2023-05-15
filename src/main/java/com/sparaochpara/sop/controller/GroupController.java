@@ -13,6 +13,8 @@ import com.sparaochpara.sop.service.GroupMemberService;
 import com.sparaochpara.sop.service.GroupService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -39,8 +41,9 @@ public class GroupController {
         model.addAttribute ("group", groupDto);
         return "groups-detail";
     }
-    @GetMapping ("{userEmail}/groups")
-    public String groupList(@PathVariable("userEmail") String userEmail, Model model) {
+    @GetMapping ("/groups")
+    public String groupList(@AuthenticationPrincipal UserDetails userDetails, Model model) {
+        String userEmail = userDetails.getUsername();
         List<GroupDto> groups = groupMemberService.findGroupsByUserEmail(userEmail);
         String firstName = userRepository.findUserByEmail(userEmail).getFirstName();
         model.addAttribute("groups", groups);

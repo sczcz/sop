@@ -1,56 +1,53 @@
 <!doctype html>
 <html lang="en"
 	  xmlns:th="http://www.thymeleaf.org">
-  <head>
-	  <title>Spara och Para - Login</title>
-	  <th:block th:replace="~{layout.html :: head}"></th:block>
-	  <script th:src="@{/js/Chart.min.js}"></script>
-  </head>
+<head>
+	<title>Spara och Para - Login</title>
+	<th:block th:replace="~{layout.html :: head}"></th:block>
+</head>
 
-	<body class="img js-fullheight" style="background-image: url(/images/test_copy.jpg);">
-	<section class="ftco-section">
-		<div class="container">
-			<div class="row justify-content-center">
-				<div class="col-md-6 text-center mb-5">
-					<h2 class="heading-section">Spara och Para</h2>
-				</div>
+<body class="img js-fullheight" style="background-image: url(/images/test_copy.jpg);">
+<section class="ftco-section">
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-md-6 text-center mb-5">
+				<h2 class="heading-section">Spara och Para</h2>
 			</div>
-			<div class="row justify-content-center">
-				<div class="col-md-6 col-lg-4">
-					<div class="login-wrap p-0">
-		      	<h3 class="mb-4 text-center">Redan registrerad?</h3>
-		      	<form th:action="@{/login}" method="post" class="signin-form">
-		      		<div class="form-group">
-		      			<input type="text" class="form-control" placeholder="Epost" name="email" required>
-		      		</div>
-	            <div class="form-group">
-	              <input id="password-field" type="password" class="form-control" placeholder="Lösenord" name="password" required>
-	              <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
-	            </div>
+		</div>
+		<div class="row justify-content-center">
+			<div class="col-md-6 col-lg-4">
+				<div class="login-wrap p-0">
+					<h3 class="mb-4 text-center">Redan registrerad?</h3>
+					<form th:action="@{/login}" method="post" class="signin-form">
+						<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+						<div class="form-group">
+							<input type="text" class="form-control" placeholder="Epost" name="username" required>
+						</div>
+						<div class="form-group">
+							<input id="password-field" type="password" class="form-control" placeholder="Lösenord" name="password" required>
+							<span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+						</div>
 
-	            <div class="form-group">
-					<div th:if="${error}">
-						<p th:text="${error}" style="color: red; text-align: center;"></p>
-					</div>
-	            	<button type="submit" class="form-control btn btn-primary submit px-3">Logga In</button>
-	            </div>
-
-				</form>
-				<p class="w-100 text-center"><a th:href="@{/users/new}">— Ny användare —</a></p>
-					</div>
+						<div class="form-group">
+							<div th:if="${error}">
+								<p th:text="${error}" style="color: red; text-align: center;"></p>
+							</div>
+							<button type="submit" class="form-control btn btn-primary submit px-3">Logga In</button>
+						</div>
+					</form>
+					<p class="w-100 text-center"><a th:href="@{/users/new}">— Ny användare —</a></p>
 				</div>
 			</div>
 		</div>
-	</section>
-
-	<div th:replace="~{layout.html :: piechart}" style="float:right;"></div>
-
-	<div th:replace="~{layout.html :: menu}">
 	</div>
+</section>
 
-	<div th:replace="~{layout.html :: scripts}">
-	</div>
+<div th:replace="~{layout.html :: menu}">
+</div>
 
-	</body>
+<div th:replace="~{layout.html :: scripts}">
+</div>
+
+</body>
 </html>
 

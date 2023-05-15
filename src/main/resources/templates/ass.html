@@ -3,30 +3,11 @@
       xmlns:th="http://www.thymeleaf.org"
 >
 <head>
-  <title>Dina transaktioner</title>
-  <th:block th:replace="~{layout.html :: head}"></th:block>
-  <style>
-    .gjs-cell.chart-container .pie-chart-container {
-      width: 30%;
-      display: flex;
-      justify-content: flex-end;
-    }
-  </style>
-
+  <title>Transactions Pie Chart</title>
 </head>
-<body id="ihcx" class="img js-fullheight" style="background-image: url(/images/pink.jpeg);">
-<div class="gjs-row" id="in97">
-  <div class="gjs-cell">
-    <!-- Content for the left column -->
-  </div>
-  <div id="pie-chart-container">
-    <canvas id="pie-chart" width="300" height="300"></canvas>
-  </div>
+<body>
 
-</div>
 <div th:replace="~{layout.html :: piechart}">
-  <div th:with="dataMap=${#httpServletRequest.getRequestURL().toString().replace('http://','').replace('https://','').split('/')[0] + '/ass'}" th:remove="tag">
-  </div>
 </div>
 
 </body>
