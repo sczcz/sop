@@ -57,12 +57,10 @@
             options: options
         });
 
-        // Make an AJAX call to the transactionsPieChart endpoint
         fetch('/ass')
             .then(response => response.json())
             .then(responseData => {
                 if (responseData && responseData.dataMap) {
-                    // Update the chart with the response data
                     var labels = Object.keys(responseData.dataMap);
                     var dataValues = Object.values(responseData.dataMap);
 
@@ -99,8 +97,6 @@
             return color;
         }
     </script>
-
-
 </div>
 
 

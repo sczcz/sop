@@ -1,15 +1,8 @@
 package com.sparaochpara.sop.controller;
 
-import com.sparaochpara.sop.dto.CategoryDto;
-import com.sparaochpara.sop.dto.TransactionDto;
 import com.sparaochpara.sop.dto.UserDto;
 import com.sparaochpara.sop.model.User;
-import com.sparaochpara.sop.repository.TransactionRepository;
-import com.sparaochpara.sop.repository.UserRepository;
-import com.sparaochpara.sop.service.TransactionService;
 import com.sparaochpara.sop.service.UserService;
-import com.sparaochpara.sop.service.impl.TransactionServiceImpl;
-import com.sparaochpara.sop.service.impl.UserServiceImpl;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -19,8 +12,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-
-import java.security.Principal;
 import java.util.List;
 
 
@@ -38,7 +29,6 @@ public class UserController {
     @GetMapping("/users")
     public String listUsers(@AuthenticationPrincipal UserDetails userDetails, Model model) {
         if (userDetails == null) {
-            System.out.println("ERROR PRINCIPAL NULL");
             return "redirect:/login";
         }
         String userEmail = userDetails.getUsername();
@@ -46,7 +36,6 @@ public class UserController {
         String firstName = userService.findUserByEmail(userEmail).getFirstName();
         model.addAttribute("users", users);
         model.addAttribute("firstName", firstName);
-        System.out.println("PRINCIPAL CREATED!!!");
         return "test";
     }
 
