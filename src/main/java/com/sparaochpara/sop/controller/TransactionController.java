@@ -2,7 +2,6 @@ package com.sparaochpara.sop.controller;
 
 import com.sparaochpara.sop.dto.CategoryDto;
 import com.sparaochpara.sop.dto.TransactionDto;
-import com.sparaochpara.sop.repository.TransactionRepository;
 import com.sparaochpara.sop.repository.UserRepository;
 import com.sparaochpara.sop.service.CategoryService;
 import com.sparaochpara.sop.service.TransactionService;
@@ -12,7 +11,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.HashMap;
@@ -21,15 +19,16 @@ import java.util.Map;
 
 @Controller
 public class TransactionController {
-    @Autowired
-    private TransactionService transactionService;
-    @Autowired
-    private CategoryService categoryService;
-    @Autowired
-    private UserRepository userRepository;
+    private final TransactionService transactionService;
+    private final CategoryService categoryService;
+    private final UserRepository userRepository;
 
     @Autowired
-    public TransactionController(TransactionService transactionService){this.transactionService = transactionService;}
+    public TransactionController(TransactionService transactionService, CategoryService categoryService, UserRepository userRepository){
+        this.transactionService = transactionService;
+        this.categoryService = categoryService;
+        this.userRepository = userRepository;
+    }
 
     @GetMapping("/transactions")
     public String listUserTransactions(@AuthenticationPrincipal UserDetails userDetails, Model model){

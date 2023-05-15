@@ -19,17 +19,16 @@
       <div class="col-md-6 col-lg-4">
         <div class="login-wrap p-0">
           <h3 class="mb-4 text-center">Ny grupp</h3>
-          <form role="form" th:method="post" th:action="@{/{userEmail}/groups/new(userEmail=${userEmail})}" th:object="${group}">
+          <form role="form" th:method="post" th:action="@{/groups/new}" th:object="${group}">
           <div class="form-group">
             <input type="hidden" class="form-control" id="id" name="id" th:field="*{id}" value="1L">
-            <input type="text" class="form-control" id="name" name="name" th:field="*{name}" placeholder="Gruppnamn" required>
+            <input type="text" class="form-control" id="name" name="name" th:field="*{name}" placeholder="Gruppnamn" required style="margin-bottom: 10px;">
             <p th:if="${#fields.hasErrors('name')}" class="text-danger" th:errors="*{name}"></p>
             <div class="form-group">
               <button type="submit" class="form-control btn btn-primary submit px-3 create-group-btn">Skapa grupp</button>
             </div>
             </div>
           </form>
-          <p class="w-100 text-center"><a th:href="@{index.html}">— Redan konto? Logga in —</a></p>
         </div>
       </div>
     </div>

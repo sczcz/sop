@@ -2,12 +2,10 @@ package com.sparaochpara.sop.controller;
 
 import com.sparaochpara.sop.dto.GroupDto;
 import com.sparaochpara.sop.dto.GroupMemberDto;
-import com.sparaochpara.sop.dto.UserDto;
 import com.sparaochpara.sop.model.Group;
 import com.sparaochpara.sop.model.GroupMember;
 import com.sparaochpara.sop.model.GroupMemberPK;
 import com.sparaochpara.sop.model.User;
-import com.sparaochpara.sop.repository.GroupMemberRepository;
 import com.sparaochpara.sop.repository.UserRepository;
 import com.sparaochpara.sop.service.GroupMemberService;
 import com.sparaochpara.sop.service.GroupService;
@@ -52,16 +50,17 @@ public class GroupController {
         return "groups-list";
     }
 
-    @GetMapping("{userEmail}/groups/new")
-    public String createGroupForm(@PathVariable("userEmail") String userEmail, Model model){
+    @GetMapping("/groups/new")
+    public String createGroupForm(@AuthenticationPrincipal UserDetails userDetails, Model model){
+        String userEmail = userDetails.getUsername();
         Group group = new Group();
         model.addAttribute("group", group);
         model.addAttribute("userEmail", userEmail);
         return "groups-create";
     }
 
-    @PostMapping("{userEmail}/groups/new")
-    public String saveGroup(@PathVariable("userEmail") String userEmail, @RequestParam(name = "id", required = false) Long id, @Valid @ModelAttribute("group") GroupDto groupDto, BindingResult bindingResult, Model model){
+    @PostMapping("/groups/new")
+    public String saveGroup(@AuthenticationPrincipal UserDetails userDetails, @RequestParam(name = "id", required = false) Long id, @Valid @ModelAttribute("group") GroupDto groupDto, BindingResult bindingResult, Model model){
         if(bindingResult.hasErrors()){
             model.addAttribute("group", groupDto);
             return "groups-create";
@@ -71,6 +70,7 @@ public class GroupController {
         }
         else {groupDto.setId(1L);}
         Group group = groupService.saveGroup(groupDto);
+        String userEmail = userDetails.getUsername();
         User user = userRepository.findUserByEmail(userEmail);
         GroupMemberPK groupMemberPK = new GroupMemberPK();
         if (group.getId() != null) {
@@ -85,6 +85,6 @@ public class GroupController {
                 .group(group)
                 .build();
         groupMemberService.saveGroupMember(groupMemberDto);
-        return "redirect:/" + userEmail + "/groups";
+        return "redirect:/groups";
     }
 }
