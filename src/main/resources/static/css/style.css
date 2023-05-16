@@ -8149,7 +8149,7 @@ body {
     bottom: 0;
     content: '';
     background: #000;
-    opacity: .3;
+    opacity: 0;
     z-index: -1; }
 
 a {

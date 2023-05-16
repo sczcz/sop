@@ -89,6 +89,7 @@ public class GroupController {
         groupMemberService.saveGroupMember(groupMemberDto);
         return "redirect:/groups";
     }
+
     @GetMapping("/groups/names")
     @ResponseBody
     public List<String> getGroupsForUser(@AuthenticationPrincipal UserDetails userDetails) {
