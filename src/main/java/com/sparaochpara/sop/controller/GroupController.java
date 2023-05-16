@@ -1,5 +1,6 @@
 package com.sparaochpara.sop.controller;
 
+import com.sparaochpara.sop.dto.CategoryDto;
 import com.sparaochpara.sop.dto.GroupDto;
 import com.sparaochpara.sop.dto.GroupMemberDto;
 import com.sparaochpara.sop.dto.UserDto;
@@ -21,6 +22,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 
@@ -86,5 +88,19 @@ public class GroupController {
                 .build();
         groupMemberService.saveGroupMember(groupMemberDto);
         return "redirect:/" + userEmail + "/groups";
+    }
+    @GetMapping("/groups/names")
+    @ResponseBody
+    public List<String> getGroupsForUser(@AuthenticationPrincipal UserDetails userDetails) {
+        String email = userDetails.getUsername();
+        List<GroupDto> groups = groupMemberService.findGroupsByUserEmail(email);
+        List<String> groupNames = groups.stream()
+                .map(GroupDto::getName)
+                .collect(Collectors.toList());
+
+        for(String dto : groupNames){
+            System.out.println(dto);
+        }
+        return groupNames;
     }
 }
