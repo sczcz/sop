@@ -7,7 +7,7 @@
   <th:block th:replace="~{layout.html :: head}"></th:block>
 </head>
 
-<body class="img js-fullheight" style="background-image: url(/images/test_copy.jpg);">
+<body class="img js-fullheight" style="background-image: url(/images/new.jpg);">
 <section class="ftco-section">
   <div class="container">
     <div class="row justify-content-center">
@@ -22,7 +22,7 @@
           <form role="form" th:method="post" th:action="@{/groups/new}" th:object="${group}">
           <div class="form-group">
             <input type="hidden" class="form-control" id="id" name="id" th:field="*{id}" value="1L">
-            <input type="text" class="form-control" id="name" name="name" th:field="*{name}" placeholder="Gruppnamn" required style="margin-bottom: 10px;">
+            <input type="text" class="form-control" id="name" name="name" th:field="*{name}" placeholder="Gruppnamn" required style="margin-bottom: 10px; color: black !important;">
             <p th:if="${#fields.hasErrors('name')}" class="text-danger" th:errors="*{name}"></p>
             <div class="form-group">
               <button type="submit" class="form-control btn btn-primary submit px-3 create-group-btn">Skapa grupp</button>

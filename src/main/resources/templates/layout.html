@@ -12,6 +12,12 @@
         <link rel="stylesheet" th:href="@{https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css}">
 
         <link rel="stylesheet" th:href="@{/css/style.css}">
+
+        <style>
+            .w-100.text-center a {
+                color: black;
+            }
+        </style>
     </th:block>
 </head>
 <body>
@@ -20,7 +26,7 @@
     <div style="position: fixed; bottom: 0; width: 100%; background-color: #333; color: white; padding: 10px;">
         <nav>
             <ul style="display: flex; justify-content: center; align-items: center; margin: 0; padding: 0;">
-                <li style="list-style: none; margin-right: 20px;"><a href="#">Hem</a></li>
+                <li style="list-style: none; margin-right: 20px;"><a th:href="@{'/users'}">Hem</a></li>
                 <li style="list-style: none; margin-right: 20px;"><a th:href="@{'/groups'}">Grupper</a></li>
                 <li style="list-style: none; margin-right: 20px;"><a th:href="@{'/transactions'}">Budget</a></li>
                 <li style="list-style: none; margin-right: 20px;"><a th:href="@{'/logout'}">Logga ut</a></li>
