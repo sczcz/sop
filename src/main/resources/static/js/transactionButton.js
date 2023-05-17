@@ -30,10 +30,10 @@ $(document).ready(function() {
             url: "/categories/names",
             type: "GET",
             success: function(data) {
-                populateCategoryDropdown(data);
+                populateCategoryDropdown(data, "#category-dropdown", "name");
             },
             error: function() {
-                console.log("Error fetching category names.");
+                console.log("Error fetching groups.");
             }
         });
     }
@@ -42,30 +42,34 @@ $(document).ready(function() {
         $.ajax({
             url: "/groups/names",
             type: "GET",
-            success: function(data) {
-                populateGroupDropdown(data);
+            success: function (data) {
+                populateGroupDropdown(data, "#group-dropdown", "name");
             },
-            error: function() {
-                console.log("Error fetching category names.");
+            error: function () {
+                console.log("Error fetching groups.");
             }
         });
     }
 
-    function populateCategoryDropdown(names) {
-        var dropdown = $("#category-dropdown");
+    function populateGroupDropdown(data, dropdownId, property) {
+        var dropdown = $(dropdownId);
         dropdown.empty(); // Clear previous options
+        dropdown.append($("<option disabled selected></option>").text("Grupper"));
 
-        names.forEach(function(name) {
-            dropdown.append($("<option></option>").text(name));
+        data.forEach(function(item) {
+            var option = $("<option></option>").text(item[property]).val(item.id);
+            dropdown.append(option);
         });
     }
 
-    function populateGroupDropdown(names) {
-        var dropdown = $("#group-dropdown");
+    function populateCategoryDropdown(data, dropdownId, property) {
+        var dropdown = $(dropdownId);
         dropdown.empty(); // Clear previous options
+        dropdown.append($("<option disabled selected></option>").text("Kategori"));
 
-        names.forEach(function(name) {
-            dropdown.append($("<option></option>").text(name));
+        data.forEach(function(item) {
+            var option = $("<option></option>").text(item[property]).val(item.id);
+            dropdown.append(option);
         });
     }
 });

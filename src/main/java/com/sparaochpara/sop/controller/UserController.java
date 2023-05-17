@@ -3,6 +3,7 @@ package com.sparaochpara.sop.controller;
 import com.sparaochpara.sop.dto.CategoryDto;
 import com.sparaochpara.sop.dto.TransactionDto;
 import com.sparaochpara.sop.dto.UserDto;
+import com.sparaochpara.sop.model.Transaction;
 import com.sparaochpara.sop.model.User;
 import com.sparaochpara.sop.repository.TransactionRepository;
 import com.sparaochpara.sop.repository.UserRepository;
@@ -46,6 +47,7 @@ public class UserController {
         String firstName = userService.findUserByEmail(userEmail).getFirstName();
         model.addAttribute("users", users);
         model.addAttribute("firstName", firstName);
+       // model.addAttribute("transaction", transaction);
         System.out.println("PRINCIPAL CREATED!!!");
         return "test";
     }
