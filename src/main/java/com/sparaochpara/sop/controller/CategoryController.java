@@ -20,16 +20,14 @@ public class CategoryController {
     }
 
     @GetMapping("/names")
-    public List<String> getCategoryNames() {
+    public List<CategoryDto> getCategoryNames() {
         List<CategoryDto> categories = categoryService.findAllCategories();
         List<String> categoryNames = categories.stream()
                 .map(CategoryDto::getName)
                 .collect(Collectors.toList());
 
-        for(String dto : categoryNames){
-            System.out.println(dto);
-        }
-        return categoryNames;
+
+        return categories;
     }
 }
 

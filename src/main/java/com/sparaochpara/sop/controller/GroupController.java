@@ -92,16 +92,14 @@ public class GroupController {
 
     @GetMapping("/groups/names")
     @ResponseBody
-    public List<String> getGroupsForUser(@AuthenticationPrincipal UserDetails userDetails) {
+    public List<GroupDto> getGroupsForUser(@AuthenticationPrincipal UserDetails userDetails) {
         String email = userDetails.getUsername();
         List<GroupDto> groups = groupMemberService.findGroupsByUserEmail(email);
         List<String> groupNames = groups.stream()
                 .map(GroupDto::getName)
                 .collect(Collectors.toList());
 
-        for(String dto : groupNames){
-            System.out.println(dto);
-        }
-        return groupNames;
+
+        return groups;
     }
 }

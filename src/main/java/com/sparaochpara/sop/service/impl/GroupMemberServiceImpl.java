@@ -57,6 +57,8 @@ public class GroupMemberServiceImpl implements GroupMemberService {
 
     }
 
+
+
     private GroupDto mapToGroupDto(Group group){
         return GroupDto.builder()
                 .id(group.getId())

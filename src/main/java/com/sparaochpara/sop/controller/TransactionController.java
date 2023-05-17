@@ -1,17 +1,27 @@
 package com.sparaochpara.sop.controller;
 
 import com.sparaochpara.sop.dto.CategoryDto;
+import com.sparaochpara.sop.dto.GroupDto;
 import com.sparaochpara.sop.dto.TransactionDto;
+import com.sparaochpara.sop.dto.UserDto;
+import com.sparaochpara.sop.model.Category;
+import com.sparaochpara.sop.model.Group;
+import com.sparaochpara.sop.model.User;
+import com.sparaochpara.sop.repository.CategoryRepository;
+import com.sparaochpara.sop.repository.GroupRepository;
+import com.sparaochpara.sop.repository.TransactionRepository;
 import com.sparaochpara.sop.repository.UserRepository;
 import com.sparaochpara.sop.service.CategoryService;
+import com.sparaochpara.sop.service.GroupService;
 import com.sparaochpara.sop.service.TransactionService;
+import com.sparaochpara.sop.service.UserService;
+import com.sparaochpara.sop.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -19,15 +29,29 @@ import java.util.Map;
 
 @Controller
 public class TransactionController {
-    private final TransactionService transactionService;
-    private final CategoryService categoryService;
-    private final UserRepository userRepository;
+    @Autowired
+    private TransactionService transactionService;
+    @Autowired
+    private CategoryService categoryService;
+    @Autowired
+    private UserRepository userRepository;
+    @Autowired
+    private UserService userService;
+    @Autowired
+    private CategoryRepository categoryRepository;
+    @Autowired
+    private GroupService groupService;
+    @Autowired
+    private GroupRepository groupRepository;
+
 
     @Autowired
-    public TransactionController(TransactionService transactionService, CategoryService categoryService, UserRepository userRepository){
+    public TransactionController(TransactionService transactionService, UserService userService, CategoryRepository categoryRepository, GroupService groupService, GroupRepository groupRepository){
         this.transactionService = transactionService;
-        this.categoryService = categoryService;
-        this.userRepository = userRepository;
+        this.userService=userService;
+        this.categoryRepository=categoryRepository;
+        this.groupService=groupService;
+        this.groupRepository=groupRepository;
     }
 
     @GetMapping("/transactions")
@@ -71,6 +95,53 @@ public class TransactionController {
         response.put("totalAmount", totalAmount);
 
         return response;
+    }
+
+    @PostMapping("/transactionsSaved")
+    public String saveTransaction(@AuthenticationPrincipal UserDetails userDetails,
+                                  @RequestParam("amount") double amount,
+                                  @RequestParam("description") String description,
+                                  @RequestParam("group-dropdown") Long groupId,
+                                  @RequestParam("category-dropdown") Long categoryId){
+
+        System.out.println(amount);
+        System.out.println(description);
+        System.out.println(groupId);
+        System.out.println(categoryId);
+
+       UserDto userDto =  userService.findUserByEmail(userDetails.getUsername());
+       User user = User.builder()
+               .email(userDto.getEmail())
+               .firstName(userDto.getFirstName())
+               .lastName(userDto.getLastName())
+               .password(userDto.getPassword())
+               .createdOn(userDto.getCreatedOn())
+               .updatedOn(userDto.getUpdatedOn())
+               .build();
+       GroupDto groupDto = groupService.findGroupById(groupId);
+       Group group = Group.builder()
+                .id(groupDto.getId())
+                .createdOn(groupDto.getCreatedOn())
+                .name(groupDto.getName())
+                .updatedOn(groupDto.getUpdatedOn())
+                .build();
+       CategoryDto categoryDto = categoryService.findCategoryById(categoryId);
+       Category category = Category.builder()
+               .id(categoryDto.getId())
+               .name(categoryDto.getName())
+               .build();
+
+       TransactionDto transactionDto = TransactionDto.builder()
+               .description(description)
+               .amount(amount)
+               .user(user)
+               .group(group)
+               .category(category)
+               .build();
+
+        transactionService.saveTransaction(transactionDto);
+
+        return "redirect:/users";
     }
 
 

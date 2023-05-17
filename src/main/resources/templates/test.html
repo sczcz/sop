@@ -12,6 +12,7 @@
             max-height: 100vh;
         }
     </style>
+    <meta name="_csrf" th:content="${_csrf.token}" />
 </head>
 
 <body class="img js-fullheight" style="background-image: url(/images/new.jpg);" id="ihcx">
@@ -52,19 +53,19 @@
 <div id="add-transaction-popup" class="popup">
     <div class="popup-content">
         <span class="close-button">&times;</span>
-        <form id="transaction-form">
-            <!-- Input fields for transaction details -->
-            <!-- Example: -->
-            <input type="text" name="transaction-name" placeholder="Anteckning" required>
-            <input type="number" name="amount" placeholder="Summa" required>
+        <form role="form" id="transaction-form" method="post">
             <div class="form-group">
-                <label for="group-dropdown">Grupper:</label>
+                <input type="text" id="description" name="description" placeholder="Anteckning" required>
+            </div>
+            <div class="form-group">
+                <input type="number" id="amount" name="amount" placeholder="Summa" required>
+            </div>
+            <div class="form-group">
                 <select id="group-dropdown" class="form-group">
                     <!-- Options will be dynamically populated -->
                 </select>
             </div>
             <div class="form-group">
-                <label for="category-dropdown">Kategori:</label>
                 <select id="category-dropdown" class="form-group">
                     <!-- Options will be dynamically populated -->
                 </select>
@@ -77,6 +78,9 @@
 <!-- Scripts -->
 <script th:src="@{/js/jquery.min.js}"></script>
 <script th:src="@{/js/transactionButton.js}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/3.0.1/js.cookie.min.js"></script>
+
+
 
 </body>
 
