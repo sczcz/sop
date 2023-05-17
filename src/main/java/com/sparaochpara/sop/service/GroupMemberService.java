@@ -16,4 +16,5 @@ public interface GroupMemberService {
 
     List<GroupDto> findGroupsByUserEmail(String email);
 
+
 }

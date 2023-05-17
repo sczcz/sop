@@ -98,9 +98,7 @@ public class GroupController {
                 .map(GroupDto::getName)
                 .collect(Collectors.toList());
 
-        for(String dto : groupNames){
-            System.out.println(dto);
-        }
+
         return groups;
     }
 }

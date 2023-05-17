@@ -5,6 +5,7 @@
     <title>Spara och Para - Test av home</title>
     <th:block th:replace="~{layout.html :: head}"></th:block>
     <link rel="stylesheet" th:href="@{/css/test.css}">
+    <meta name="_csrf" th:content="${_csrf.token}" />
 </head>
 
 <body id="ihcx">
@@ -45,7 +46,7 @@
 <div id="add-transaction-popup" class="popup">
     <div class="popup-content">
         <span class="close-button">&times;</span>
-        <form role="form" id="transaction-form" method="post" th:object="${transaction}">
+        <form role="form" id="transaction-form" method="post">
             <div class="form-group">
                 <input type="text" id="description" name="description" placeholder="Anteckning" required>
             </div>
@@ -70,6 +71,9 @@
 <!-- Scripts -->
 <script th:src="@{/js/jquery.min.js}"></script>
 <script th:src="@{/js/transactionButton.js}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/3.0.1/js.cookie.min.js"></script>
+
+
 
 </body>
 

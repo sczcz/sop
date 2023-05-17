@@ -62,6 +62,17 @@ public class UserServiceImpl implements UserService {
                 .build();
     }
 
+    public User mapToUserForTrans(UserDto user) {
+        return User.builder()
+                .email(user.getEmail())
+                .firstName(user.getFirstName())
+                .lastName(user.getLastName())
+                .password(user.getPassword())
+                .createdOn(user.getCreatedOn())
+                .updatedOn(user.getUpdatedOn())
+                .build();
+    }
+
 
 }
 

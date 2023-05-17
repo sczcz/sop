@@ -1,5 +1,6 @@
 package com.sparaochpara.sop.repository;
 
+import com.sparaochpara.sop.dto.CategoryDto;
 import com.sparaochpara.sop.model.Category;
 import org.springframework.data.jpa.repository.JpaRepository;
 

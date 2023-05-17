@@ -1,9 +1,22 @@
 // JavaScript for the pop-up
+
+
 $(document).ready(function() {
+
+    var csrfToken = $("meta[name='_csrf']").attr("content");
+    console.log(csrfToken);
+
+    // Include the CSRF token in your AJAX requests
+    $.ajaxSetup({
+        beforeSend: function(xhr) {
+            xhr.setRequestHeader('X-CSRF-TOKEN', csrfToken);
+        }
+    });
     // Open the pop-up when the button is clicked
     $("#add-transaction-button").click(function() {
         fetchGroupNames();
         fetchCategoryNames();
+        console.log("Button clicked.");
         $("#add-transaction-popup").fadeIn();
     });
 
@@ -19,11 +32,52 @@ $(document).ready(function() {
         }
     });
 
-    // Submit the form when it is submitted
+   /* // Submit the form when it is submitted
     $("#transaction-form").submit(function(e) {
         e.preventDefault();
         // Handle the form submission as per your requirements
+    });*/
+
+    $("#transaction-form").submit(function(e) {
+        e.preventDefault();
+
+        var amount = parseFloat($("#amount").val()); // Parse the amount as an integer
+        var description = $("#description").val();
+        var category = parseInt($("#category-dropdown").val());
+        var group = parseInt($("#group-dropdown").val());
+
+        var transactionData = {
+            amount: amount,
+            description: description,
+            category: category,
+            group: group
+        };
+
+        saveTransaction(transactionData);
+        console.log(transactionData.amount);
     });
+
+    function saveTransaction(transactionData) {
+        // Make an AJAX request to save the transaction data
+        $.ajax({
+            url: "/transactionsSaved",
+            type: "POST",
+            data: {
+                amount: transactionData.amount,
+                description: transactionData.description,
+                "group-dropdown": transactionData.group,
+                "category-dropdown": transactionData.category,
+            },
+            success: function(response) {
+                console.log("Transaction saved successfully");
+                // Perform any additional actions upon successful save
+                $("#add-transaction-popup").fadeOut();
+            },
+            error: function() {
+                console.log("Error saving transaction.");
+            }
+        });
+    }
 
     function fetchCategoryNames() {
         $.ajax({

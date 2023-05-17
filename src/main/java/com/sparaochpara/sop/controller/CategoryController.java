@@ -26,9 +26,7 @@ public class CategoryController {
                 .map(CategoryDto::getName)
                 .collect(Collectors.toList());
 
-        for(String dto : categoryNames){
-            System.out.println(dto);
-        }
+
         return categories;
     }
 }

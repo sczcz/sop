@@ -5,6 +5,8 @@ import com.sparaochpara.sop.model.Transaction;
 import com.sparaochpara.sop.repository.TransactionRepository;
 import com.sparaochpara.sop.repository.UserRepository;
 import com.sparaochpara.sop.service.TransactionService;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
@@ -51,6 +53,8 @@ public class TransactionServiceImpl implements TransactionService {
     }
 
     private Transaction mapToTransaction(TransactionDto transactionDto) {
+
+
         return Transaction.builder()
                 .id(transactionDto.getId())
                 .description(transactionDto.getDescription())

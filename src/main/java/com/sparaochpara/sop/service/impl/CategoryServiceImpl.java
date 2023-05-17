@@ -22,6 +22,13 @@ public class CategoryServiceImpl implements CategoryService {
         return categories.stream().map((category) -> mapToCategoryDto(category)).collect(Collectors.toList());
     }
 
+    @Override
+    public CategoryDto findCategoryById(Long id) {
+            Category category = categoryRepository.findById(id).get();
+            CategoryDto categoryDto = mapToCategoryDto(category);
+        return categoryDto;
+    }
+
     private CategoryDto mapToCategoryDto(Category category) {
         CategoryDto categoryDto = CategoryDto.builder()
                 .id(category.getId())
