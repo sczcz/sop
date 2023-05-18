@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <title>Spara och Para - Hem</title>
+  <th:block th:replace="~{layout.html :: head}"></th:block>
+  <link rel="stylesheet" th:href="@{/css/test.css}">
+
+  <style>
+    .scrollable-column {
+      overflow-y: auto;
+      max-height: 100vh;
+    }
+  </style>
+  <meta name="_csrf" th:content="${_csrf.token}" />
+</head>
+
+<body class="img js-fullheight" style="background-image: url(/images/new.jpg);" id="ihcx">
+
+<div class="gjs-row" id="i7c7">
+  <!--Left column-->
+  <div class="gjs-cell scrollable-column" id="iqnk">
+    <h3 class="mb-4 text-center" th:text="'Välkommen ' + ${firstName} + '!'">Senaste transaktioner</h3>
+    <div th:each="transaction : ${userTransactions}" class="col-lg-6 mb-2 text-center mx-auto" style="min-width: 250px; max-width: fit-content; border: 1px solid #ccc; background-color: rgba(255, 255, 255, 0.8);">
+      <div class="position-relative mb-2">
+        <div style="display: inline-block;">
+          <p th:text="${transaction.description}" class="h3 fw-bolder text-decoration-none link-dark stretched-link" href="#!" style="display: inline-block; font-size: 14px;"></p><br>
+          <p th:text="${transaction.amount}" class="h3 fw-bolder text-decoration-none link-dark stretched-link" href="#!" style="display: inline-block; font-size: 14px;"></p>
+          <p th:text="${transaction.createdOn}" class="h3 fw-bolder text-decoration-none link-dark stretched-link" href="#!" style="display: inline-block; font-size: 14px;"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--Right column-->
+  <div class="gjs-cell" id="i0wq">
+    <div th:replace="~{layout.html :: piechart}">
+    </div>
+  </div>
+</div>
+
+<div th:replace="~{layout.html :: menu}">
+</div>
+
+<div th:replace="~{layout.html :: scripts}">
+</div>
+
+<div th:replace="~{layout.html :: popup}">
+</div>
+
+</body>
+
+</html>

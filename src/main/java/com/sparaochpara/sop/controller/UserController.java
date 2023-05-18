@@ -1,7 +1,9 @@
 package com.sparaochpara.sop.controller;
 
 import com.sparaochpara.sop.dto.UserDto;
+import com.sparaochpara.sop.model.Transaction;
 import com.sparaochpara.sop.model.User;
+import com.sparaochpara.sop.repository.TransactionRepository;
 import com.sparaochpara.sop.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,10 +21,12 @@ import java.util.List;
 @Controller
 public class UserController {
     private final UserService userService;
+    private final TransactionRepository transactionRepository;
 
     @Autowired
-    public UserController(UserService userService) {
+    public UserController(UserService userService, TransactionRepository transactionRepository) {
         this.userService = userService;
+        this.transactionRepository = transactionRepository;
     }
 
     @GetMapping("/users")
@@ -37,6 +41,17 @@ public class UserController {
         model.addAttribute("firstName", firstName);
         return "test";
     }
+
+    @GetMapping("/users/transactions")
+    public String showLatestUserTransactions(@AuthenticationPrincipal UserDetails userDetails, Model model) {
+        String userEmail = userDetails.getUsername();
+        String firstName = userService.findUserByEmail(userEmail).getFirstName();
+        List<Transaction> userTransactions = transactionRepository.findTopNByUserEmailOrderByCreatedOnDesc(userEmail, 10);
+        model.addAttribute("userTransactions", userTransactions);
+        model.addAttribute("firstName", firstName);
+        return "home";
+    }
+
 
     @GetMapping("/users/{email}")
     public String userDetail(@PathVariable("email") String email, Model model){

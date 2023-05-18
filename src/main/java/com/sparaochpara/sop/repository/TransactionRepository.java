@@ -15,4 +15,7 @@ public interface TransactionRepository extends JpaRepository<Transaction, Long> 
 
     @Query("SELECT t FROM Transaction t WHERE t.user.email = :email")
     List<Transaction> findByUserEmail(@Param("email") String email);
+
+    @Query("SELECT t FROM Transaction t WHERE t.user.email = ?1 ORDER BY t.createdOn DESC")
+    List<Transaction> findTopNByUserEmailOrderByCreatedOnDesc(String userEmail, int limit);
 }

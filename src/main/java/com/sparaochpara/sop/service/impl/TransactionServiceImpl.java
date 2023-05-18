@@ -39,6 +39,11 @@ public class TransactionServiceImpl implements TransactionService {
         return transactionRepository.save(transaction);
     }
 
+    @Override
+    public List<Transaction> getLatestUserTransactions(String userEmail, int limit) {
+        return transactionRepository.findTopNByUserEmailOrderByCreatedOnDesc(userEmail, limit);
+    }
+
     private TransactionDto mapToTransactionDto(Transaction transaction) {
         return TransactionDto.builder()
                 .id(transaction.getId())
