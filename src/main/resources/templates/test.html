@@ -47,40 +47,8 @@
 <div th:replace="~{layout.html :: scripts}">
 </div>
 
-<button id="add-transaction-button">Lägg till utgift</button>
-
-<!-- Pop-up Container -->
-<div id="add-transaction-popup" class="popup">
-    <div class="popup-content">
-        <span class="close-button">&times;</span>
-        <form role="form" id="transaction-form" method="post">
-            <div class="form-group">
-                <input type="text" id="description" name="description" placeholder="Anteckning" required>
-            </div>
-            <div class="form-group">
-                <input type="number" id="amount" name="amount" placeholder="Summa" required>
-            </div>
-            <div class="form-group">
-                <select id="group-dropdown" class="form-group">
-                    <!-- Options will be dynamically populated -->
-                </select>
-            </div>
-            <div class="form-group">
-                <select id="category-dropdown" class="form-group">
-                    <!-- Options will be dynamically populated -->
-                </select>
-            </div>
-            <input type="submit" value="Spara">
-        </form>
-    </div>
+<div th:replace="~{layout.html :: popup}">
 </div>
-
-<!-- Scripts -->
-<script th:src="@{/js/jquery.min.js}"></script>
-<script th:src="@{/js/transactionButton.js}"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/3.0.1/js.cookie.min.js"></script>
-
-
 
 </body>
 
