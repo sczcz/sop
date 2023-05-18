@@ -104,11 +104,6 @@ public class TransactionController {
                                   @RequestParam("group-dropdown") Long groupId,
                                   @RequestParam("category-dropdown") Long categoryId){
 
-        System.out.println(amount);
-        System.out.println(description);
-        System.out.println(groupId);
-        System.out.println(categoryId);
-
        UserDto userDto =  userService.findUserByEmail(userDetails.getUsername());
        User user = User.builder()
                .email(userDto.getEmail())
@@ -118,6 +113,7 @@ public class TransactionController {
                .createdOn(userDto.getCreatedOn())
                .updatedOn(userDto.getUpdatedOn())
                .build();
+
        GroupDto groupDto = groupService.findGroupById(groupId);
        Group group = Group.builder()
                 .id(groupDto.getId())
@@ -125,6 +121,7 @@ public class TransactionController {
                 .name(groupDto.getName())
                 .updatedOn(groupDto.getUpdatedOn())
                 .build();
+
        CategoryDto categoryDto = categoryService.findCategoryById(categoryId);
        Category category = Category.builder()
                .id(categoryDto.getId())

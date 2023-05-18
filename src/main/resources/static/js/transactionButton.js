@@ -32,12 +32,6 @@ $(document).ready(function() {
         }
     });
 
-   /* // Submit the form when it is submitted
-    $("#transaction-form").submit(function(e) {
-        e.preventDefault();
-        // Handle the form submission as per your requirements
-    });*/
-
     $("#transaction-form").submit(function(e) {
         e.preventDefault();
 
