@@ -34,6 +34,7 @@ public class LoginController {
         if (authentication != null) {
             new SecurityContextLogoutHandler().logout(request, response, authentication);
         }
-        return "redirect:/";
+        model.addAttribute("message", "Du har loggat ut. Välkommen åter!");
+        return "index";
     }
 }
