@@ -29,6 +29,7 @@ public class UserController {
         this.transactionRepository = transactionRepository;
     }
 
+    /*
     @GetMapping("/users")
     public String listUsers(@AuthenticationPrincipal UserDetails userDetails, Model model) {
         if (userDetails == null) {
@@ -40,9 +41,9 @@ public class UserController {
         model.addAttribute("users", users);
         model.addAttribute("firstName", firstName);
         return "test";
-    }
+    }*/
 
-    @GetMapping("/users/transactions")
+    @GetMapping("/users")
     public String showLatestUserTransactions(@AuthenticationPrincipal UserDetails userDetails, Model model) {
         String userEmail = userDetails.getUsername();
         String firstName = userService.findUserByEmail(userEmail).getFirstName();
