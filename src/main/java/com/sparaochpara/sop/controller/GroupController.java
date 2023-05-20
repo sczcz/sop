@@ -129,4 +129,27 @@ public class GroupController {
 
         return "groups";
     }
+
+    @PostMapping("/joinGroup")
+    public String joinGroup(@AuthenticationPrincipal UserDetails userDetails, @RequestParam("groupId") Long groupId){
+
+        Optional<Group> groupOptional = groupRepository.findById(groupId);
+        Group group = groupOptional.get();
+        User user = userRepository.findUserByEmail(userDetails.getUsername());
+        GroupMemberPK groupMemberPK = new GroupMemberPK();
+        if (group.getId() != null) {
+            groupMemberPK.setGroupId(group.getId());
+            groupMemberPK.setUserEmail(user.getEmail());
+            GroupMember groupMember = new GroupMember();
+            groupMember.setGroupMemberPK(groupMemberPK);
+        }
+        GroupMemberDto groupMemberDto = GroupMemberDto.builder()
+                .groupMemberPK(groupMemberPK)
+                .user(user)
+                .group(group)
+                .build();
+        groupMemberService.saveGroupMember(groupMemberDto);
+
+        return "redirect:/groups";
+    }
 }

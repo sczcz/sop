@@ -54,13 +54,31 @@
     <script th:src="@{/js/transactionButton.js}"></script>
 </div>
 
+<div th:fragment="group-popup">
+    <button id="add-group-button">Gå med i grupp</button>
+    <div id="add-group-popup" class="popup">
+        <div class="popup-content">
+            <span class="close-button">&times;</span>
+            <form role="form" id="group-form" method="post">
+                <div class="form-group">
+                    <input type="number" id="groupId" name="groupId" placeholder="Grupp-ID" required>
+                </div>
+                <input type="submit" value="Gå med">
+            </form>
+        </div>
+    </div>
+    <!-- Scripts -->
+    <script th:src="@{/js/jquery.min.js}"></script>
+    <script th:src="@{/js/joinGroup.js}"></script>
+</div>
+
+
 <div th:fragment="menu">
     <div style="position: fixed; bottom: 0; width: 100%; background-color: #333; color: white; padding: 10px;">
         <nav>
             <ul style="display: flex; justify-content: center; align-items: center; margin: 0; padding: 0;">
-                <li style="list-style: none; margin-right: 20px;"><a th:href="@{'/users'}">Hem</a></li>
+                <li style="list-style: none; margin-right: 20px;"><a th:href="@{'/users/transactions'}">Hem</a></li>
                 <li style="list-style: none; margin-right: 20px;"><a th:href="@{'/groups'}">Grupper</a></li>
-                <li style="list-style: none; margin-right: 20px;"><a th:href="@{'/transactions'}">Budget</a></li>
                 <li style="list-style: none; margin-right: 20px;"><a th:href="@{'/logout'}">Logga ut</a></li>
             </ul>
         </nav>
