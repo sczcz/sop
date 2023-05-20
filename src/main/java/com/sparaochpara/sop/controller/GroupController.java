@@ -3,10 +3,10 @@ package com.sparaochpara.sop.controller;
 import com.sparaochpara.sop.dto.CategoryDto;
 import com.sparaochpara.sop.dto.GroupDto;
 import com.sparaochpara.sop.dto.GroupMemberDto;
-import com.sparaochpara.sop.model.Group;
-import com.sparaochpara.sop.model.GroupMember;
-import com.sparaochpara.sop.model.GroupMemberPK;
-import com.sparaochpara.sop.model.User;
+import com.sparaochpara.sop.model.*;
+import com.sparaochpara.sop.repository.GroupMemberRepository;
+import com.sparaochpara.sop.repository.GroupRepository;
+import com.sparaochpara.sop.repository.TransactionRepository;
 import com.sparaochpara.sop.repository.UserRepository;
 import com.sparaochpara.sop.service.GroupMemberService;
 import com.sparaochpara.sop.service.GroupService;
@@ -20,6 +20,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Controller
@@ -28,12 +29,18 @@ public class GroupController {
     private GroupService groupService;
     private GroupMemberService groupMemberService;
     private UserRepository userRepository;
+    private GroupRepository groupRepository;
+    private GroupMemberRepository groupMemberRepository;
+    private TransactionRepository transactionRepository;
 
     @Autowired
-    public GroupController (GroupService groupService, GroupMemberService groupMemberService, UserRepository userRepository) {
+    public GroupController (GroupService groupService, GroupMemberService groupMemberService, UserRepository userRepository, GroupRepository groupRepository, GroupMemberRepository groupMemberRepository, TransactionRepository transactionRepository) {
         this.groupService = groupService;
         this.groupMemberService = groupMemberService;
         this.userRepository = userRepository;
+        this.groupRepository=groupRepository;
+        this.groupMemberRepository=groupMemberRepository;
+        this.transactionRepository=transactionRepository;
     }
     @GetMapping ("{userEmail}/groups/{groupId}")
     public String groupDetail(@PathVariable("groupId") Long groupId, Model model) {
@@ -101,5 +108,25 @@ public class GroupController {
 
 
         return groups;
+    }
+
+    @GetMapping("/group/{groupId}")
+    public String groupsEconomy(@AuthenticationPrincipal UserDetails userDetails, Model model, @PathVariable("groupId") Long groupId){
+
+        //User user = userRepository.findUserByEmail(userDetails.getUsername());
+        //List<Transaction> transactions = transactionRepository.
+        //List<Group> groups = groupMemberRepository.findByUser(user);
+        //model.addAttribute("groups", groups);
+        Optional<Group> groupOptional = groupRepository.findById(groupId);
+        Group group = groupOptional.get();
+
+
+        List<Transaction> transactions = transactionRepository.findTopNByGroupOrderByCreatedOnDesc(groupId, 30);
+
+
+        model.addAttribute("userTransactions", transactions);
+        model.addAttribute("group", group);
+
+        return "groups";
     }
 }

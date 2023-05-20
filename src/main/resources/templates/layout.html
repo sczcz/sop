@@ -137,6 +137,69 @@
     </script>
 </div>
 
+<div th:fragment="groupPiechart">
+    <script th:src="@{/js/Chart.min.js}"></script>
+    <canvas id="group-pie-chart"></canvas>
+
+    <script th:inline="javascript">
+        var data = null;
+        var options = {
+            responsive: true,
+            title: {
+                display: true,
+                text: 'Transactions by Category'
+            }
+        };
+
+        var ctx = document.getElementById('group-pie-chart').getContext('2d');
+        var chart = new Chart(ctx, {
+            type: 'pie',
+            data: data,
+            options: options
+        });
+
+        fetch('/groupTrans/' + [[${group.id}]])
+            .then(response => response.json())
+            .then(responseData => {
+                if (responseData && responseData.dataMap) {
+                    var labels = Object.keys(responseData.dataMap);
+                    var dataValues = Object.values(responseData.dataMap);
+                    console.log([[${group.id}]])
+                    var backgroundColors = [];
+                    for (var i = 0; i < labels.length; i++) {
+                        backgroundColors.push(getRandomColor());
+                    }
+
+                    var totalAmount = dataValues.reduce((a, b) => a + b, 0);
+                    options.title.text = 'Transactions by Category (Total Amount: ' + totalAmount.toFixed(2) + ')';
+
+                    data = {
+                        labels: labels,
+                        datasets: [{
+                            data: dataValues,
+                            backgroundColor: backgroundColors
+                        }]
+                    };
+
+                    chart.data = data;
+                    chart.update();
+                } else {
+                    console.error('Invalid response data');
+                }
+            })
+            .catch(error => console.error(error));
+
+        function getRandomColor() {
+            var letters = '0123456789ABCDEF';
+            var color = '#';
+            for (var i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        }
+    </script>
+</div>
+
 
 </body>
 </html>

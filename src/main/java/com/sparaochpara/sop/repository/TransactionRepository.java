@@ -18,4 +18,12 @@ public interface TransactionRepository extends JpaRepository<Transaction, Long> 
 
     @Query("SELECT t FROM Transaction t WHERE t.user.email = ?1 ORDER BY t.createdOn DESC")
     List<Transaction> findTopNByUserEmailOrderByCreatedOnDesc(String userEmail, int limit);
+
+    @Query("SELECT t FROM Transaction t WHERE t.group.id = ?1 ORDER BY t.createdOn DESC")
+    List<Transaction> findTopNByGroupOrderByCreatedOnDesc(Long id, int limit);
+
+    //@Query("SELECT t FROM Transaction t WHERE t.user.email = :email")
+    //List<Transaction> findByGroup(@Param("email") String email);
+
+    List<Transaction> findByGroup(Group group);
 }
