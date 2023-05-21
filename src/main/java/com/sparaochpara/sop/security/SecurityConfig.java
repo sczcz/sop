@@ -28,7 +28,7 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests()
-                .requestMatchers("/", "/home", "/users/new", "/users", "/css/**", "/js/**", "/images/**","/transactionsSaved").permitAll()
+                .requestMatchers("/", "/home", "/users/new", "/users", "/css/**", "/js/**", "/images/**","/transactionsSaved","/joinGroup").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
@@ -44,7 +44,7 @@ public class SecurityConfig {
                 .permitAll()
                 .and()
                 .csrf()
-                .ignoringRequestMatchers("/transactionsSaved");
+                .ignoringRequestMatchers("/transactionsSaved","/joinGroup");
 
 
         return http.build();

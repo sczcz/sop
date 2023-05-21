@@ -1,8 +1,6 @@
 <!doctype html>
-<html
-        lang="en"
-        xmlns:th="http://www.thymeleaf.org"
->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <title>Spara och Para - Grupplista</title>
     <th:block th:replace="~{layout.html :: head}"></th:block>
@@ -23,16 +21,15 @@
                     <div th:each="group : ${groups}" class="col-lg-6 mb-2 text-center mx-auto" style="min-width: 250px; max-width: fit-content; border: 1px solid #ccc; background-color: rgba(255, 255, 255, 0.8);">
                         <div class="position-relative mb-2">
                             <div style="display: inline-block;">
-                                <p th:text="${group.getName()}" class="h3 fw-bolder text-decoration-none link-dark stretched-link" href="#!" style="display: inline-block; font-size: 14px;"></p>
+                                <a th:href="@{/group/{groupId}(groupId=${group.id})}" class="h3 fw-bolder text-decoration-none link-dark stretched-link" style="display: inline-block; font-size: 14px;">
+                                    <p th:text="${group.getName()}"></p>
+                                </a>
                             </div>
                         </div>
-
                     </div>
                     <p class="w-100 text-center"><a th:href="@{/groups/new}">— Skapa ny grupp —</a></p>
                 </div>
             </div>
-        </div>
-        <div th:replace="~{layout.html :: piechart}">
         </div>
     </div>
 </section>
@@ -41,6 +38,9 @@
 </div>
 
 <div th:replace="~{layout.html :: scripts}">
+</div>
+
+<div th:replace="~{layout.html :: group-popup}">
 </div>
 
 </body>

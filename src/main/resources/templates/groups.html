@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <title>Spara och Para - Hem</title>
+  <th:block th:replace="~{layout.html :: head}"></th:block>
+  <link rel="stylesheet" th:href="@{/css/test.css}">
+  <meta name="_csrf" th:content="${_csrf.token}" />
+</head>
+
+<body class="img js-fullheight" style="background-image: url(/images/new.jpg);" id="ihcx">
+
+<div class="gjs-row" id="i7c7">
+
+  <!--Left column-->
+  <div class="gjs-cell scrollable-column" id="iqnk">
+    <section class="ftco-section">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-md-6 text-center mb-5">
+            <h2 class="heading-section" th:text="${group.name}">Senaste transaktioner</h2>
+          </div>
+        </div>
+        <h4 class="mb-4 text-center">Senaste utgifter</h4>
+        <div class="table-responsive" style="width: 100%;">
+          <table class="table table-bordered table-striped custom-table">
+            <thead>
+            <tr>
+              <th>Beskrivning</th>
+              <th>Belopp</th>
+              <th>Skapad</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="transaction : ${userTransactions}">
+              <td th:text="${transaction.description}"></td>
+              <td th:text="${transaction.amount}"></td>
+              <td th:text="${#temporals.format(transaction.createdOn, 'yyyy-MM-dd HH:mm')}"></td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!--Right column-->
+  <div class="gjs-cell" id="i0wq">
+    <section class="ftco-section">
+      <div class="container">
+        <div th:replace="~{layout.html :: groupPiechart}">
+        </div>
+        <h4 class="mb-4 text-center">Medlemmar</h4>
+        <div class="table-responsive" style="width: 100%;">
+          <table class="table table-bordered table-striped custom-table">
+            <thead>
+            <tr>
+              <th>Namn</th>
+              <th>Mail</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="User : ${groupMemberlist}">
+              <td th:text="${User.getFirstName()} + ' ' + ${User.getLastName()}"></td>
+              <td th:text="${User.getEmail()}"></td>
+            </tr>
+            <!-- Add more rows as needed -->
+            </tbody>
+          </table>
+        </div>
+        <!-- End of New List -->
+      </div>
+    </section>
+  </div>
+
+</div>
+
+<div th:replace="~{layout.html :: menu}">
+</div>
+
+<div th:replace="~{layout.html :: scripts}">
+</div>
+
+<div th:replace="~{layout.html :: popup}">
+</div>
+
+</body>
+
+</html>

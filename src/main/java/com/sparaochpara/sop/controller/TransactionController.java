@@ -6,6 +6,7 @@ import com.sparaochpara.sop.dto.TransactionDto;
 import com.sparaochpara.sop.dto.UserDto;
 import com.sparaochpara.sop.model.Category;
 import com.sparaochpara.sop.model.Group;
+import com.sparaochpara.sop.model.Transaction;
 import com.sparaochpara.sop.model.User;
 import com.sparaochpara.sop.repository.CategoryRepository;
 import com.sparaochpara.sop.repository.GroupRepository;
@@ -26,6 +27,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Controller
 public class TransactionController {
@@ -43,15 +45,18 @@ public class TransactionController {
     private GroupService groupService;
     @Autowired
     private GroupRepository groupRepository;
+    @Autowired
+    private TransactionRepository transactionRepository;
 
 
     @Autowired
-    public TransactionController(TransactionService transactionService, UserService userService, CategoryRepository categoryRepository, GroupService groupService, GroupRepository groupRepository){
+    public TransactionController(TransactionService transactionService, UserService userService, CategoryRepository categoryRepository, GroupService groupService, GroupRepository groupRepository, TransactionRepository transactionRepository){
         this.transactionService = transactionService;
         this.userService=userService;
         this.categoryRepository=categoryRepository;
         this.groupService=groupService;
         this.groupRepository=groupRepository;
+        this.transactionRepository=transactionRepository;
     }
 
     @GetMapping("/transactions")
@@ -67,8 +72,10 @@ public class TransactionController {
 
     @GetMapping("/ass")
     @ResponseBody
-    public Map<String, Object> transactionsPieChart(Model model) {
-        List<TransactionDto> transactions = transactionService.findAllTransactions();
+    public Map<String, Object> transactionsPieChart(@AuthenticationPrincipal UserDetails userDetails, Model model) {
+
+        List<Transaction> transactions = transactionRepository.findByUserEmail(userDetails.getUsername());
+        //List<TransactionDto> transactions = transactionService.findAllTransactions();
         List<CategoryDto> categories = categoryService.findAllCategories();
         Map<String, Double> dataMap = new HashMap<>();
         double totalAmount = 0.0;
@@ -76,7 +83,7 @@ public class TransactionController {
         for (CategoryDto category : categories) {
             double categoryAmount = 0.0;
 
-            for (TransactionDto transaction : transactions) {
+            for (Transaction transaction : transactions) {
                 if (transaction.getCategory().getId() == category.getId()) {
                     categoryAmount += transaction.getAmount();
                     totalAmount += transaction.getAmount();
@@ -140,6 +147,68 @@ public class TransactionController {
 
         return "redirect:/users";
     }
+
+    @GetMapping("/groupTrans/{groupId}")
+    @ResponseBody
+    public Map<String, Object> transactionsGroupPieChart(@AuthenticationPrincipal UserDetails userDetails, @PathVariable Long groupId, Model model) {
+
+        //User user = userRepository.findUserByEmail(userDetails.getUsername());
+        Optional<Group> groupOptional = groupRepository.findById(groupId);
+        Group group = groupOptional.get();
+        System.out.println(groupId);
+
+        List<Transaction> transactions = transactionRepository.findByGroup(group);
+        //List<CategoryDto> categories = categoryService.findAllCategories();
+        List<Category> categories = categoryRepository.findAll();
+        Map<String, Double> groupTrans = new HashMap<>();
+        double totalAmount = 0.0;
+
+        for (Category category : categories) {
+            double categoryAmount = 0.0;
+
+            for (Transaction transaction : transactions) {
+                if (transaction.getCategory().getId() == category.getId()) {
+                    categoryAmount += transaction.getAmount();
+                    totalAmount += transaction.getAmount();
+                    System.out.println(transaction.getDescription());
+                }
+            }
+
+            if (categoryAmount > 0) {
+                groupTrans.put(category.getName(), categoryAmount);
+            }
+        }
+        model.addAttribute("groupTrans", groupTrans);
+        model.addAttribute("totalAmount", totalAmount);
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("dataMap", groupTrans);
+        response.put("totalAmount", totalAmount);
+
+        return response;
+    }
+
+ /*   @GetMapping("/groupTransTable")
+    public String showTransactions(@RequestParam(name = "groupId", required = false) Long groupId, Model model) {
+        // Logic to fetch transactions based on the selected group (groupId)
+        // If groupId is null or empty, fetch all transactions for the user
+
+        List<Transaction> transactions;
+        if (groupId != null && groupId > 0) {
+            Group group = groupService.getGroupById(groupId); // Assuming you have a GroupService
+            transactions = transactionService.getTransactionsByGroup(group); // Assuming you have a TransactionService
+        } else {
+            transactions = transactionService.getTransactionsForUser(currentUser); // Assuming you have a TransactionService and currentUser object
+        }*
+        Optional<Group> groupOptional = groupRepository.findById(groupId);
+        Group group = groupOptional.get();
+        List<Transaction> transactions = transactionRepository.findTopNByGroupOrderByCreatedOnDesc(group, 30);
+
+
+        model.addAttribute("userTransactions", transactions);
+        return "groupTransactionTable::table"; // Return the fragment name that represents the table HTML content
+    }
+*/
 
 
 

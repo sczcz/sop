@@ -25,7 +25,7 @@ public class LoginController {
 
     @PostMapping("/login")
     public String processLoginForm() {
-        return "redirect:/users";
+        return "redirect:/users/transactions";
     }
 
     @GetMapping("/logout")
