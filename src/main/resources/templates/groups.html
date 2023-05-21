@@ -50,6 +50,25 @@
       <div class="container">
         <div th:replace="~{layout.html :: groupPiechart}">
         </div>
+        <h4 class="mb-4 text-center">Medlemmar</h4>
+        <div class="table-responsive" style="width: 100%;">
+          <table class="table table-bordered table-striped custom-table">
+            <thead>
+            <tr>
+              <th>Namn</th>
+              <th>Mail</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="User : ${groupMemberlist}">
+              <td th:text="${User.getFirstName()} + ' ' + ${User.getLastName()}"></td>
+              <td th:text="${User.getEmail()}"></td>
+            </tr>
+            <!-- Add more rows as needed -->
+            </tbody>
+          </table>
+        </div>
+        <!-- End of New List -->
       </div>
     </section>
   </div>

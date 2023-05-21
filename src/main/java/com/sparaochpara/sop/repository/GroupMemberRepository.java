@@ -15,6 +15,9 @@ public interface GroupMemberRepository extends JpaRepository<GroupMember, GroupM
     Optional<GroupMember> findById(GroupMemberPK groupMemberPK);
     @Query("SELECT gm.group FROM GroupMember gm JOIN gm.group g WHERE gm.user = :user")
     List<Group> findByUser(@Param("user") User user);
-    Optional<List<User>> findByGroup(Group group);
+    //Optional<List<User>> findByGroup(Group group);
     List<Group> findByUserEmail(String userEmail);
+
+    @Query("SELECT gm.user FROM GroupMember gm JOIN gm.user u WHERE gm.group = :group")
+    List<User> findByGroup(@Param("group") Group group);
 }

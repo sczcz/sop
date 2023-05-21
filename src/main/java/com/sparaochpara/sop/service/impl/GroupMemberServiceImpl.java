@@ -12,7 +12,9 @@ import com.sparaochpara.sop.repository.UserRepository;
 import com.sparaochpara.sop.service.GroupMemberService;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 @Service
 public class GroupMemberServiceImpl implements GroupMemberService {
@@ -32,8 +34,8 @@ public class GroupMemberServiceImpl implements GroupMemberService {
 
     @Override
     public List<UserDto> findUsersByGroup(Group group) {
-        List<User> users = groupMemberRepository.findByGroup(group).get();
-        return users.stream().map((user) -> mapToUserDto(user)).collect(Collectors.toList());
+        List<User> users = groupMemberRepository.findByGroup(group);
+         return users.stream().map((user) -> mapToUserDto((User) user)).collect(Collectors.toList());
     }
 
     @Override

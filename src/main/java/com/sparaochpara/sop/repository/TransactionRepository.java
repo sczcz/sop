@@ -26,4 +26,5 @@ public interface TransactionRepository extends JpaRepository<Transaction, Long> 
     //List<Transaction> findByGroup(@Param("email") String email);
 
     List<Transaction> findByGroup(Group group);
+
 }

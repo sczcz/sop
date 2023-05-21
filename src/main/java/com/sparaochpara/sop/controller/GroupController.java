@@ -19,6 +19,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -119,11 +120,18 @@ public class GroupController {
         //model.addAttribute("groups", groups);
         Optional<Group> groupOptional = groupRepository.findById(groupId);
         Group group = groupOptional.get();
+        List<User> groupMemberList = groupMemberRepository.findByGroup(group);
+        //List<String> groupMembeMail = groupMemberRepository.findByGroup(group);
+        //List<User> groupMemberList = groupMemberRepository.findGroupMembersByGroup(group);
+        /*for(String email : groupMembeMail){
+            groupMemberList.add(userRepository.findUserByEmail(email));
+        }*/
+
 
 
         List<Transaction> transactions = transactionRepository.findTopNByGroupOrderByCreatedOnDesc(groupId, 30);
 
-
+        model.addAttribute("groupMemberlist", groupMemberList);
         model.addAttribute("userTransactions", transactions);
         model.addAttribute("group", group);
 

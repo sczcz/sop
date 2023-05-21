@@ -72,8 +72,10 @@ public class TransactionController {
 
     @GetMapping("/ass")
     @ResponseBody
-    public Map<String, Object> transactionsPieChart(Model model) {
-        List<TransactionDto> transactions = transactionService.findAllTransactions();
+    public Map<String, Object> transactionsPieChart(@AuthenticationPrincipal UserDetails userDetails, Model model) {
+
+        List<Transaction> transactions = transactionRepository.findByUserEmail(userDetails.getUsername());
+        //List<TransactionDto> transactions = transactionService.findAllTransactions();
         List<CategoryDto> categories = categoryService.findAllCategories();
         Map<String, Double> dataMap = new HashMap<>();
         double totalAmount = 0.0;
@@ -81,7 +83,7 @@ public class TransactionController {
         for (CategoryDto category : categories) {
             double categoryAmount = 0.0;
 
-            for (TransactionDto transaction : transactions) {
+            for (Transaction transaction : transactions) {
                 if (transaction.getCategory().getId() == category.getId()) {
                     categoryAmount += transaction.getAmount();
                     totalAmount += transaction.getAmount();
