@@ -51,13 +51,18 @@ public class GroupController {
     }
     @GetMapping ("/groups")
     public String groupList(@AuthenticationPrincipal UserDetails userDetails, Model model) {
-        String userEmail = userDetails.getUsername();
-        List<GroupDto> groups = groupMemberService.findGroupsByUserEmail(userEmail);
-        String firstName = userRepository.findUserByEmail(userEmail).getFirstName();
-        model.addAttribute("groups", groups);
-        model.addAttribute("userEmail", userEmail);
-        model.addAttribute("firstName", firstName);
-        return "groups-list";
+        if (userDetails == null) {
+            return "redirect:/login";
+        }
+        else {
+            String userEmail = userDetails.getUsername();
+            List<GroupDto> groups = groupMemberService.findGroupsByUserEmail(userEmail);
+            String firstName = userRepository.findUserByEmail(userEmail).getFirstName();
+            model.addAttribute("groups", groups);
+            model.addAttribute("userEmail", userEmail);
+            model.addAttribute("firstName", firstName);
+            return "groups-list";
+        }
     }
 
     @GetMapping("/groups/new")

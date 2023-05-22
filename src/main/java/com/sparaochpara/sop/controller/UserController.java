@@ -45,12 +45,18 @@ public class UserController {
 
     @GetMapping("/users")
     public String showLatestUserTransactions(@AuthenticationPrincipal UserDetails userDetails, Model model) {
-        String userEmail = userDetails.getUsername();
-        String firstName = userService.findUserByEmail(userEmail).getFirstName();
-        List<Transaction> userTransactions = transactionRepository.findTopNByUserEmailOrderByCreatedOnDesc(userEmail, 10);
-        model.addAttribute("userTransactions", userTransactions);
-        model.addAttribute("firstName", firstName);
-        return "home";
+        if (userDetails == null) {
+            return "redirect:/login";
+        }
+        else {
+            String userEmail = userDetails.getUsername();
+            String firstName = userService.findUserByEmail(userEmail).getFirstName();
+            List<Transaction> userTransactions = transactionRepository.findTopNByUserEmailOrderByCreatedOnDesc(userEmail, 10);
+            model.addAttribute("userTransactions", userTransactions);
+            model.addAttribute("firstName", firstName);
+            return "home";
+        }
+
     }
 
 
