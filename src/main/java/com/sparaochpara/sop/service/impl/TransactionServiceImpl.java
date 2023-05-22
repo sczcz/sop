@@ -44,6 +44,11 @@ public class TransactionServiceImpl implements TransactionService {
         return transactionRepository.findTopNByUserEmailOrderByCreatedOnDesc(userEmail, limit);
     }
 
+    @Override
+    public void deleteTransaction(Long transactionId) {
+        transactionRepository.deleteById(transactionId);
+    }
+
     private TransactionDto mapToTransactionDto(Transaction transaction) {
         return TransactionDto.builder()
                 .id(transaction.getId())

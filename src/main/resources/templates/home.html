@@ -33,13 +33,21 @@
         </thead>
         <tbody>
         <tr th:each="transaction : ${userTransactions}">
-          <td th:text="${transaction.description}"></td>
+          <td>
+            <a href="#" class="remove-icon" data-toggle="modal" data-target="#confirmationModal"
+               data-transactionId="" th:attr="data-transactionId=${transaction.id}">
+              <i class="fa fa-trash"></i>
+            </a>
+            <span th:text="${transaction.description}"></span>
+          </td>
           <td th:text="${transaction.amount}"></td>
           <td th:text="${#temporals.format(transaction.createdOn, 'yyyy-MM-dd HH:mm')}"></td>
         </tr>
         </tbody>
       </table>
     </div>
+        <div th:replace="~{layout.html :: removal-popup}">
+        </div>
       </div>
     </section>
   </div>
@@ -59,10 +67,13 @@
 <div th:replace="~{layout.html :: menu}">
 </div>
 
-<div th:replace="~{layout.html :: scripts}">
+<div th:replace="~{layout.html :: popup}">
 </div>
 
-<div th:replace="~{layout.html :: popup}">
+<div th:replace="~{layout.html :: removal-script}">
+</div>
+
+<div th:replace="~{layout.html :: scripts}">
 </div>
 
 </body>

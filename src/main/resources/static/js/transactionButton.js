@@ -66,6 +66,7 @@ $(document).ready(function() {
                 console.log("Transaction saved successfully");
                 // Perform any additional actions upon successful save
                 $("#add-transaction-popup").fadeOut();
+                location.reload();
             },
             error: function() {
                 console.log("Error saving transaction.");

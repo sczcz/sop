@@ -44,7 +44,7 @@ public class SecurityConfig {
                 .permitAll()
                 .and()
                 .csrf()
-                .ignoringRequestMatchers("/transactionsSaved","/joinGroup");
+                .ignoringRequestMatchers("/transactionsSaved", "/joinGroup", "/transactions/{transactionId}/remove");
 
 
         return http.build();

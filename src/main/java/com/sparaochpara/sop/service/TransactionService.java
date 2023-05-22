@@ -17,4 +17,6 @@ public interface TransactionService {
     Transaction saveTransaction(TransactionDto transactionDto);
 
     List<Transaction> getLatestUserTransactions(String userEmail, int limit);
+
+    void deleteTransaction(Long transactionId);
 }

@@ -70,6 +70,12 @@ public class TransactionController {
         return "transactions-list";
     }
 
+    @PostMapping("/transactions/{transactionId}/remove")
+    public String deleteTransaction(@PathVariable("transactionId") Long transactionId) {
+        transactionService.deleteTransaction(transactionId);
+        return "redirect:/users";
+    }
+
     @GetMapping("/ass")
     @ResponseBody
     public Map<String, Object> transactionsPieChart(@AuthenticationPrincipal UserDetails userDetails, Model model) {
