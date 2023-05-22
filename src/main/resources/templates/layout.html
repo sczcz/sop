@@ -17,6 +17,25 @@
             .w-100.text-center a {
                 color: black;
             }
+            .sort-link {
+                color: black !important;
+                text-decoration: underline;
+            }
+
+            .sort-link .fa-sort:before {
+                content: "\f0dc";
+                text-decoration: underline;
+            }
+
+            .sort-link.asc .fa-sort:before {
+                content: "\f0de";
+                text-decoration: underline;
+            }
+
+            .sort-link.desc .fa-sort:before {
+                content: "\f0dd";
+                text-decoration: underline;
+            }
         </style>
     </th:block>
 </head>
@@ -285,6 +304,59 @@
             }
             return color;
         }
+    </script>
+</div>
+
+<div th:fragment="sortByDate">
+    <script th:inline="javascript">
+        $(document).ready(function() {
+            var sortDirection = "desc"; // Initial sort direction
+
+            // Handle sort link click event
+            $("#sortLink").click(function(e) {
+                e.preventDefault();
+                var link = $(this);
+                sortDirection = sortDirection === "asc" ? "desc" : "asc";
+                sortTransactions(link);
+            });
+
+            // Initial sorting on page load
+            sortTransactions($("#sortLink"));
+
+            function sortTransactions(link) {
+                var sortedRows = $("tbody tr").sort(function(a, b) {
+                    var aValue = getDateValue($(a).find("td:last-child").text());
+                    var bValue = getDateValue($(b).find("td:last-child").text());
+
+                    // Compare the values based on the sort direction
+                    if (sortDirection === "asc") {
+                        return aValue - bValue;
+                    } else {
+                        return bValue - aValue;
+                    }
+                });
+
+                $("tbody").html(sortedRows);
+
+                // Toggle sort direction class
+                link.toggleClass("asc desc");
+
+                // Update arrow icon based on sort direction
+                var arrowIcon = link.find("i");
+                arrowIcon.toggleClass("fa-chevron-up", sortDirection === "asc");
+                arrowIcon.toggleClass("fa-chevron-down", sortDirection === "desc");
+                arrowIcon.removeClass("fa-sort");
+
+                // Toggle sort direction class
+                link.toggleClass("asc desc");
+            }
+
+            function getDateValue(dateString) {
+                // Convert date string to a sortable value, e.g., timestamp
+                // Implement the conversion logic based on your date format
+                return Date.parse(dateString);
+            }
+        });
     </script>
 </div>
 
