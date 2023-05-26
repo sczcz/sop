@@ -53,3 +53,7 @@ body {
         flex-basis: 100%;
     }
 }
+
+.black-link {
+    color: black;
+}

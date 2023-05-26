@@ -49,21 +49,6 @@ public class GroupController {
         model.addAttribute ("group", groupDto);
         return "groups-detail";
     }
-    @GetMapping ("/groups")
-    public String groupList(@AuthenticationPrincipal UserDetails userDetails, Model model) {
-        if (userDetails == null) {
-            return "redirect:/login";
-        }
-        else {
-            String userEmail = userDetails.getUsername();
-            List<GroupDto> groups = groupMemberService.findGroupsByUserEmail(userEmail);
-            String firstName = userRepository.findUserByEmail(userEmail).getFirstName();
-            model.addAttribute("groups", groups);
-            model.addAttribute("userEmail", userEmail);
-            model.addAttribute("firstName", firstName);
-            return "groups-list";
-        }
-    }
 
     @GetMapping("/groups/new")
     public String createGroupForm(@AuthenticationPrincipal UserDetails userDetails, Model model){
@@ -119,23 +104,10 @@ public class GroupController {
     @GetMapping("/group/{groupId}")
     public String groupsEconomy(@AuthenticationPrincipal UserDetails userDetails, Model model, @PathVariable("groupId") Long groupId){
 
-        //User user = userRepository.findUserByEmail(userDetails.getUsername());
-        //List<Transaction> transactions = transactionRepository.
-        //List<Group> groups = groupMemberRepository.findByUser(user);
-        //model.addAttribute("groups", groups);
         Optional<Group> groupOptional = groupRepository.findById(groupId);
         Group group = groupOptional.get();
         List<User> groupMemberList = groupMemberRepository.findByGroup(group);
-        //List<String> groupMembeMail = groupMemberRepository.findByGroup(group);
-        //List<User> groupMemberList = groupMemberRepository.findGroupMembersByGroup(group);
-        /*for(String email : groupMembeMail){
-            groupMemberList.add(userRepository.findUserByEmail(email));
-        }*/
-
-
-
         List<Transaction> transactions = transactionRepository.findTopNByGroupOrderByCreatedOnDesc(groupId, 30);
-
         model.addAttribute("groupMemberlist", groupMemberList);
         model.addAttribute("userTransactions", transactions);
         model.addAttribute("group", group);
@@ -164,5 +136,31 @@ public class GroupController {
         groupMemberService.saveGroupMember(groupMemberDto);
 
         return "redirect:/groups";
+    }
+
+    @GetMapping("/groups")
+    public String groupsPage(@AuthenticationPrincipal UserDetails userDetails, Model model){
+        if(userDetails==null){
+            return "redirect:/login";
+        }
+        else {
+            String userEmail = userDetails.getUsername();
+            List<GroupDto> groups = groupMemberService.findGroupsByUserEmail(userEmail);
+            String firstName = userRepository.findUserByEmail(userEmail).getFirstName();
+            List<Transaction> transactions = transactionRepository.findAll();
+            List<Transaction> groupTransactions = new ArrayList<>();
+            for(GroupDto groupDto : groups){
+                for(Transaction transaction : transactions){
+                    if(groupDto.getId()==transaction.getGroup().getId()){
+                        groupTransactions.add(transaction);
+                    }
+                }
+            }
+            model.addAttribute("groupTransactions", groupTransactions);
+            model.addAttribute("groups", groups);
+            model.addAttribute("userEmail", userEmail);
+            model.addAttribute("firstName", firstName);
+            return "groups-home";
+        }
     }
 }

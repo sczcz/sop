@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <title>Spara och Para - Hem</title>
+  <th:block th:replace="~{layout.html :: head}"></th:block>
+  <link rel="stylesheet" th:href="@{/css/test.css}">
+  <meta name="_csrf" th:content="${_csrf.token}" />
+</head>
+
+<body class="img js-fullheight" style="background-image: url(/images/new.jpg);" id="ihcx">
+
+<div class="gjs-row" id="i7c7">
+
+  <!--Left column-->
+  <div class="gjs-cell scrollable-column" id="iqnk">
+    <section class="ftco-section">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-md-6 text-center mb-5">
+            <h2 class="heading-section" th:text="'Välkommen ' + ${firstName} + '!'">Senaste transaktioner</h2>
+          </div>
+        </div>
+        <h4 class="mb-4 text-center">Alla dina grupper</h4>
+        <div class="table-responsive" style="width: 100%;">
+          <table class="table table-bordered table-striped custom-table">
+            <thead>
+            <tr>
+              <th>Grupp</th>
+              <th>Grupp-ID</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="Group : ${groups}">
+              <td>
+                <a th:href="@{/group/{groupId}(groupId=${Group.id})}" class="black-link">
+                  <span th:text="${Group.name}"></span>
+                </a>
+              </td>
+              <td>
+                <span th:text="${Group.id}"></span>
+              </td>
+            </tr>
+            <!-- Add more rows as needed -->
+            </tbody>
+          </table>
+        </div>
+        <p class="w-100 text-center"><a th:href="@{/groups/new}">— Skapa ny grupp —</a></p>
+        </div>
+    </section>
+  </div>
+
+  <!--Right column-->
+  <div class="gjs-cell scrollable-column" id="i0wq">
+    <section class="ftco-section">
+      <div class="container">
+        <h4 class="mb-4 text-center">Utgifter för alla grupper</h4>
+        <div class="table-responsive" style="width: 100%;">
+          <table class="table table-bordered table-striped custom-table">
+            <thead>
+            <tr>
+              <th>Beskrivning</th>
+              <th>Belopp</th>
+              <th>Användare</th>
+              <th>Grupp</th>
+              <th>Skapad</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="Transaction : ${groupTransactions}">
+              <td th:text="${Transaction.description}"></td>
+              <td th:text="${Transaction.amount}"></td>
+              <td th:text="${Transaction.user.getEmail()}"></td>
+              <td th:text="${Transaction.group.getName()}"></td>
+              <td th:text="${#temporals.format(Transaction.createdOn, 'yyyy-MM-dd HH:mm')}"></td>
+            </tr>
+            <!-- Add more rows as needed -->
+            </tbody>
+          </table>
+        </div>
+        </div>
+    </section>
+  </div>
+
+</div>
+
+<div th:replace="~{layout.html :: menu}">
+</div>
+
+<div th:replace="~{layout.html :: group-popup}">
+</div>
+
+<div th:replace="~{layout.html :: scripts}">
+</div>
+
+</body>
+
+</html>
