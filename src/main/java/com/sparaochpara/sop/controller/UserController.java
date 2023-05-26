@@ -29,20 +29,6 @@ public class UserController {
         this.transactionRepository = transactionRepository;
     }
 
-    /*
-    @GetMapping("/users")
-    public String listUsers(@AuthenticationPrincipal UserDetails userDetails, Model model) {
-        if (userDetails == null) {
-            return "redirect:/login";
-        }
-        String userEmail = userDetails.getUsername();
-        List<UserDto> users = userService.findAllUsers();
-        String firstName = userService.findUserByEmail(userEmail).getFirstName();
-        model.addAttribute("users", users);
-        model.addAttribute("firstName", firstName);
-        return "test";
-    }*/
-
     @GetMapping("/users")
     public String showLatestUserTransactions(@AuthenticationPrincipal UserDetails userDetails, Model model) {
         if (userDetails == null) {
@@ -56,15 +42,6 @@ public class UserController {
             model.addAttribute("firstName", firstName);
             return "home";
         }
-
-    }
-
-
-    @GetMapping("/users/{email}")
-    public String userDetail(@PathVariable("email") String email, Model model){
-        UserDto userDto = userService.findUserByEmail(email);
-        model.addAttribute("user", userDto);
-        return "users-detail";
     }
 
     @GetMapping("/users/new")
@@ -93,24 +70,6 @@ public class UserController {
         userDto.setPassword(encodedPassword);
 
         userService.saveUser(userDto);
-        return "redirect:/users";
-    }
-
-    @GetMapping("/users/{email}/edit")
-    public String editUserForm(@PathVariable("email") String email, Model model){
-        UserDto user = userService.findUserByEmail(email);
-        model.addAttribute("user", user);
-        return "users-edit";
-    }
-
-    @PostMapping("/users/{email}/edit")
-    public String updateUser(@PathVariable("email") String email,@Valid @ModelAttribute("user") UserDto user
-    , BindingResult bindingResult){
-        if(bindingResult.hasErrors()){
-            return "users-edit";
-        }
-        user.setEmail(email);
-        userService.updateUser(user);
         return "redirect:/users";
     }
 }

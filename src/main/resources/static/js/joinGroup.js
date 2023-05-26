@@ -52,6 +52,7 @@ $(document).ready(function() {
                 console.log("Group joined succesfully!");
                 // Perform any additional actions upon successful save
                 $("#add-group-popup").fadeOut();
+                location.reload();
             },
             error: function() {
                 console.log("Error joining group. Group does not exist or you are already in the group");

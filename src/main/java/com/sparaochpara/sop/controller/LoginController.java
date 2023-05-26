@@ -15,9 +15,6 @@ import org.springframework.ui.Model;
 @Controller
 public class LoginController {
 
-    @Autowired
-    private UserRepository userRepository;
-
     @GetMapping("/login")
     public String showLoginForm() {
         return "index";

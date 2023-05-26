@@ -1,6 +1,5 @@
 package com.sparaochpara.sop.controller;
 
-import com.sparaochpara.sop.dto.CategoryDto;
 import com.sparaochpara.sop.dto.GroupDto;
 import com.sparaochpara.sop.dto.GroupMemberDto;
 import com.sparaochpara.sop.model.*;
@@ -22,7 +21,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Controller
 
@@ -42,12 +40,6 @@ public class GroupController {
         this.groupRepository=groupRepository;
         this.groupMemberRepository=groupMemberRepository;
         this.transactionRepository=transactionRepository;
-    }
-    @GetMapping ("{userEmail}/groups/{groupId}")
-    public String groupDetail(@PathVariable("groupId") Long groupId, Model model) {
-        GroupDto groupDto = groupService.findGroupById(groupId);
-        model.addAttribute ("group", groupDto);
-        return "groups-detail";
     }
 
     @GetMapping("/groups/new")
@@ -93,10 +85,6 @@ public class GroupController {
     public List<GroupDto> getGroupsForUser(@AuthenticationPrincipal UserDetails userDetails) {
         String email = userDetails.getUsername();
         List<GroupDto> groups = groupMemberService.findGroupsByUserEmail(email);
-        List<String> groupNames = groups.stream()
-                .map(GroupDto::getName)
-                .collect(Collectors.toList());
-
 
         return groups;
     }

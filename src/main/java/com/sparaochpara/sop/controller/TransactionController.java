@@ -16,7 +16,6 @@ import com.sparaochpara.sop.service.CategoryService;
 import com.sparaochpara.sop.service.GroupService;
 import com.sparaochpara.sop.service.TransactionService;
 import com.sparaochpara.sop.service.UserService;
-import com.sparaochpara.sop.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -59,17 +58,6 @@ public class TransactionController {
         this.transactionRepository=transactionRepository;
     }
 
-    @GetMapping("/transactions")
-    public String listUserTransactions(@AuthenticationPrincipal UserDetails userDetails, Model model){
-        String userEmail = userDetails.getUsername();
-        List<TransactionDto> transactions = transactionService.findTransactionsByUserEmail(userEmail);
-        String firstName = userRepository.findUserByEmail(userEmail).getFirstName();
-        model.addAttribute("transactions", transactions);
-        model.addAttribute("userEmail", userEmail);
-        model.addAttribute("firstName", firstName);
-        return "transactions-list";
-    }
-
     @PostMapping("/transactions/{transactionId}/remove")
     public String deleteTransaction(@PathVariable("transactionId") Long transactionId) {
         transactionService.deleteTransaction(transactionId);
@@ -81,7 +69,6 @@ public class TransactionController {
     public Map<String, Object> transactionsPieChart(@AuthenticationPrincipal UserDetails userDetails, Model model) {
 
         List<Transaction> transactions = transactionRepository.findByUserEmail(userDetails.getUsername());
-        //List<TransactionDto> transactions = transactionService.findAllTransactions();
         List<CategoryDto> categories = categoryService.findAllCategories();
         Map<String, Double> dataMap = new HashMap<>();
         double totalAmount = 0.0;
@@ -156,15 +143,13 @@ public class TransactionController {
 
     @GetMapping("/groupTrans/{groupId}")
     @ResponseBody
-    public Map<String, Object> transactionsGroupPieChart(@AuthenticationPrincipal UserDetails userDetails, @PathVariable Long groupId, Model model) {
+    public Map<String, Object> transactionsGroupPieChart(@PathVariable Long groupId, Model model) {
 
-        //User user = userRepository.findUserByEmail(userDetails.getUsername());
         Optional<Group> groupOptional = groupRepository.findById(groupId);
         Group group = groupOptional.get();
         System.out.println(groupId);
 
         List<Transaction> transactions = transactionRepository.findByGroup(group);
-        //List<CategoryDto> categories = categoryService.findAllCategories();
         List<Category> categories = categoryRepository.findAll();
         Map<String, Double> groupTrans = new HashMap<>();
         double totalAmount = 0.0;
@@ -193,30 +178,4 @@ public class TransactionController {
 
         return response;
     }
-
- /*   @GetMapping("/groupTransTable")
-    public String showTransactions(@RequestParam(name = "groupId", required = false) Long groupId, Model model) {
-        // Logic to fetch transactions based on the selected group (groupId)
-        // If groupId is null or empty, fetch all transactions for the user
-
-        List<Transaction> transactions;
-        if (groupId != null && groupId > 0) {
-            Group group = groupService.getGroupById(groupId); // Assuming you have a GroupService
-            transactions = transactionService.getTransactionsByGroup(group); // Assuming you have a TransactionService
-        } else {
-            transactions = transactionService.getTransactionsForUser(currentUser); // Assuming you have a TransactionService and currentUser object
-        }*
-        Optional<Group> groupOptional = groupRepository.findById(groupId);
-        Group group = groupOptional.get();
-        List<Transaction> transactions = transactionRepository.findTopNByGroupOrderByCreatedOnDesc(group, 30);
-
-
-        model.addAttribute("userTransactions", transactions);
-        return "groupTransactionTable::table"; // Return the fragment name that represents the table HTML content
-    }
-*/
-
-
-
-
 }
