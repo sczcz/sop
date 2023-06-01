@@ -42,6 +42,7 @@ public class UserController {
             model.addAttribute("firstName", firstName);
             return "home";
         }
+
     }
 
     @GetMapping("/users/new")
@@ -72,4 +73,5 @@ public class UserController {
         userService.saveUser(userDto);
         return "redirect:/users";
     }
+
 }
