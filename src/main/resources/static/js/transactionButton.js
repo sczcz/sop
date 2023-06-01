@@ -6,13 +6,13 @@ $(document).ready(function() {
     var csrfToken = $("meta[name='_csrf']").attr("content");
     console.log(csrfToken);
 
-    // Include the CSRF token in your AJAX requests
+
     $.ajaxSetup({
         beforeSend: function(xhr) {
             xhr.setRequestHeader('X-CSRF-TOKEN', csrfToken);
         }
     });
-    // Open the pop-up when the button is clicked
+
     $("#add-transaction-button").click(function() {
         fetchGroupNames();
         fetchCategoryNames();
@@ -20,12 +20,12 @@ $(document).ready(function() {
         $("#add-transaction-popup").fadeIn();
     });
 
-    // Close the pop-up when the close button is clicked
+
     $(".close-button").click(function() {
         $("#add-transaction-popup").fadeOut();
     });
 
-    // Close the pop-up when the escape key is pressed
+
     $(document).keyup(function(e) {
         if (e.key === "Escape") {
             $("#add-transaction-popup").fadeOut();
@@ -35,7 +35,7 @@ $(document).ready(function() {
     $("#transaction-form").submit(function(e) {
         e.preventDefault();
 
-        var amount = parseFloat($("#amount").val()); // Parse the amount as an integer
+        var amount = parseFloat($("#amount").val());
         var description = $("#description").val();
         var category = parseInt($("#category-dropdown").val());
         var group = parseInt($("#group-dropdown").val());
@@ -52,7 +52,6 @@ $(document).ready(function() {
     });
 
     function saveTransaction(transactionData) {
-        // Make an AJAX request to save the transaction data
         $.ajax({
             url: "/transactionsSaved",
             type: "POST",
@@ -64,7 +63,7 @@ $(document).ready(function() {
             },
             success: function(response) {
                 console.log("Transaction saved successfully");
-                // Perform any additional actions upon successful save
+
                 $("#add-transaction-popup").fadeOut();
                 location.reload();
             },
@@ -102,7 +101,7 @@ $(document).ready(function() {
 
     function populateGroupDropdown(data, dropdownId, property) {
         var dropdown = $(dropdownId);
-        dropdown.empty(); // Clear previous options
+        dropdown.empty();
         dropdown.append($("<option disabled selected></option>").text("Grupper"));
 
         data.forEach(function(item) {
@@ -113,7 +112,7 @@ $(document).ready(function() {
 
     function populateCategoryDropdown(data, dropdownId, property) {
         var dropdown = $(dropdownId);
-        dropdown.empty(); // Clear previous options
+        dropdown.empty();
         dropdown.append($("<option disabled selected></option>").text("Kategori"));
 
         data.forEach(function(item) {

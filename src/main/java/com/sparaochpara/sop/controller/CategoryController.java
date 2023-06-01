@@ -22,10 +22,6 @@ public class CategoryController {
     @GetMapping("/names")
     public List<CategoryDto> getCategoryNames() {
         List<CategoryDto> categories = categoryService.findAllCategories();
-        List<String> categoryNames = categories.stream()
-                .map(CategoryDto::getName)
-                .collect(Collectors.toList());
-
 
         return categories;
     }
