@@ -310,7 +310,7 @@
 <div th:fragment="sortByDate">
     <script th:inline="javascript">
         $(document).ready(function() {
-            var sortDirection = "desc"; // Initial sort direction
+            var sortDirection = "desc";
 
             // Handle sort link click event
             $("#sortLink").click(function(e) {
@@ -328,7 +328,6 @@
                     var aValue = getDateValue($(a).find("td:last-child").text());
                     var bValue = getDateValue($(b).find("td:last-child").text());
 
-                    // Compare the values based on the sort direction
                     if (sortDirection === "asc") {
                         return aValue - bValue;
                     } else {
@@ -338,10 +337,8 @@
 
                 $("tbody").html(sortedRows);
 
-                // Toggle sort direction class
                 link.toggleClass("asc desc");
 
-                // Update arrow icon based on sort direction
                 var arrowIcon = link.find("i");
                 arrowIcon.toggleClass("fa-chevron-up", sortDirection === "asc");
                 arrowIcon.toggleClass("fa-chevron-down", sortDirection === "desc");
@@ -352,8 +349,6 @@
             }
 
             function getDateValue(dateString) {
-                // Convert date string to a sortable value, e.g., timestamp
-                // Implement the conversion logic based on your date format
                 return Date.parse(dateString);
             }
         });
